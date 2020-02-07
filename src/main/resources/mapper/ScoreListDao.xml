@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.ScoreListDao">
+    <select id="queryTotalScore" resultType="com.ctfplatform.hznuctf.entity.ScoreList">
+        SELECT user_id,any_value(user_nickname)AS user_nickname,
+        COUNT(*) AS acNum,SUM(answer_get_point) as score
+        FROM user NATURAL JOIN
+        (SELECT DISTINCT question_id,user_id,answer_get_point FROM generalrecord
+        WHERE answer_result = 1) AS generalrecord NATURAL JOIN question
+        GROUP BY user_id
+        ORDER BY score DESC;
+    </select>
+    <select id="queryOnetypeList" resultType="com.ctfplatform.hznuctf.entity.ScoreList">
+        SELECT user_id,any_value(user_nickname)AS user_nickname,
+        COUNT(*) AS acNum,SUM(answer_get_point) as score
+        FROM user NATURAL JOIN
+        (SELECT DISTINCT question_id,user_id,answer_get_point FROM generalrecord
+        WHERE answer_result = 1) AS generalrecord NATURAL JOIN question
+        WHERE question_typeid = #{typeId}
+        GROUP BY user_id
+        ORDER BY score DESC ;
+    </select>
+    <select id="FuzzyQueryScoreList" resultType="com.ctfplatform.hznuctf.entity.ScoreList">
+        SELECT user_id,any_value(user_nickname)AS user_nickname,
+        COUNT(*) AS acNum,SUM(answer_get_point) as score
+        FROM user NATURAL JOIN
+        (SELECT DISTINCT question_id,user_id,answer_get_point FROM generalrecord
+        WHERE answer_result = 1) AS generalrecord NATURAL JOIN question
+        WHERE user_nickname LIKE CONCAT(CONCAT('%',#{text}),'%')
+        GROUP BY user_id
+        ORDER BY score DESC ;
+    </select>
+    <select id="queryTeamScoreListByTeamId" resultType="com.ctfplatform.hznuctf.entity.TeamScoreList">
+        SELECT ANY_VALUE(team_point) AS team_point,type_id,question_type,SUM(answer_get_point) AS thisTypeScore
+        FROM team
+        NATURAL JOIN
+        (SELECT DISTINCT question_id,ANY_VALUE(team_id) AS team_id,MAX(answer_get_point) AS answer_get_point
+        FROM record
+        WHERE answer_result=1 AND team_id=#{teamId}
+        GROUP BY question_id) AS record
+        NATURAL JOIN
+        question,questiontype
+        WHERE question.question_typeid = questiontype.type_id
+         GROUP BY questiontype.type_id;
+    </select>
+</mapper>

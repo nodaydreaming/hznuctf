@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.CompetitionDao">
+    <select id="ListCompetition" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition
+     ORDER BY competition_id
+    </select>
+    <select id="ListjoinedCompetition" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition,team NATURAL JOIN teamcompetitor
+     WHERE user_id = #{userId} AND competition.competition_id = team.team_competition_id
+    </select>
+    <select id="queryCompetitionById" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition
+     WHERE competition_id=#{competitionId}
+    </select>
+    <select id="finishedCompetition" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition
+     WHERE end  &lt; now()
+    </select>
+    <select id="notFinishedCompetition" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition
+     WHERE end  &gt; now()
+    </select>
+    <select id="queryCompetitionByNumber" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition
+     WHERE competition_number=#{competitionNumber}
+    </select>
+    <select id="fuzzyQueryCompetition" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition
+     WHERE (competition_title LIKE CONCAT(CONCAT('%',#{text}),'%'))
+    </select>
+    <select id="fuzzyQueryCompetitionByUserId" resultType="com.ctfplatform.hznuctf.entity.Competition">
+     SELECT *
+     FROM competition,team NATURAL JOIN teamcompetitor
+     WHERE user_id = #{userId} AND competition.competition_id = team.team_competition_id AND (competition_title LIKE CONCAT(CONCAT('%',#{text}),'%'))
+    </select>
+    <select id="queryCompetitionCanregister" resultType="java.lang.Integer">
+        SELECT canregister
+        FROM competition
+        WHERE competition_id=#{competitionId}
+    </select>
+    <insert id="insertCompetition" parameterType="com.ctfplatform.hznuctf.entity.Competition">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="competitionId">
+            select max(competition_id)+1 as competitionId from competition
+        </selectKey>
+        INSERT INTO
+        competition(competition_id,competition_title,start,end,createtime,canregister,isteam,competition_number,holder,intro,image,target,plan,rule,reward,registration,publisher)
+        VALUES
+        (#{competitionId},#{competitionTitle},#{start},#{end},#{createtime},#{canregister},#{isteam},#{competitionNumber},#{holder},#{intro},#{image},#{target},#{plan},#{rule},#{reward},#{registration},#{publisher})
+    </insert>
+    <update id="updateCompetition" parameterType="com.ctfplatform.hznuctf.entity.Competition">
+        UPDATE competition
+        <set>
+            <if test="competitionTitle!=null">competition_title=#{competitionTitle},</if>
+            <if test="start!=null">start=#{start},</if>
+            <if test="end!=null">end=#{end},</if>
+            <if test="canregister!=null">canregister=#{canregister},</if>
+            <if test="isteam!=null">isteam=#{isteam},</if>
+            <if test="competitionNumber!=null">competition_number=#{competitionNumber},</if>
+            <if test="holder!=null">holder=#{holder},</if>
+            <if test="intro!=null">intro=#{intro},</if>
+            <if test="image!=null">image=#{image},</if>
+            <if test="target!=null">target=#{target},</if>
+            <if test="plan!=null">plan=#{plan},</if>
+            <if test="rule!=null">rule=#{rule},</if>
+            <if test="reward!=null">reward=#{reward},</if>
+            <if test="registration!=null">registration=#{registration}</if>
+        </set>
+        WHERE
+        competition_id=#{competitionId}
+    </update>
+    <delete id="deleteCompetition" parameterType="com.ctfplatform.hznuctf.entity.Competition">
+        DELETE FROM
+        competition
+        WHERE
+        competition_id=#{competitionId}
+    </delete>
+</mapper>

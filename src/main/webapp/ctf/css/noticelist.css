@@ -1,0 +1,47 @@
+body{
+    width: 100%;
+}
+.bread{
+	margin-left: 40px;
+	font-size: 1.7rem;
+	font-weight: bolder;
+}
+.form-group{
+    padding-top: 5px;
+}
+.form-group i{
+    padding-right: 20px;
+}
+
+.form-group input{
+    padding-right: 50px;
+    margin-right: 10px;
+}
+
+.search{
+    margin: 30px;
+    margin-top: 0;
+    height: 60px;
+    background-color: #5b7794;
+    border-radius: 5px;
+}
+.go{
+    background-color: #33ccff;
+    color: #fff;
+    width: 60px;
+}
+.container{
+    width: 95%;
+}
+table{
+	font-size: 1.6rem;
+    background-color: #E9EDF1;
+}
+
+
+@media all and (max-width: 1278px){
+    body{
+        width: 1278px;
+    }  
+
+}

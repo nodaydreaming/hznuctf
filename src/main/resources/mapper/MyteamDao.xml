@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.MyteamDao">
+    <select id="queryMyteamByCompetitionIdAndUserId" resultType="com.ctfplatform.hznuctf.entity.Myteam">
+        SELECT competition_title,team_id,team_name,
+        team_captain AS captainId,
+        user_name AS captainName,user_tel AS captainTel,user_studentnumber AS captainNumber,
+        user_class AS captainClass,invitation_code AS teamInvitationCode
+        FROM competition,user,team natural join teamcompetitor
+        WHERE competition.competition_id = team.team_competition_id AND
+        user.user_id = team.team_captain AND
+        competition.competition_id=#{competitionId} AND
+        teamcompetitor.user_id = #{userId};
+    </select>
+</mapper>

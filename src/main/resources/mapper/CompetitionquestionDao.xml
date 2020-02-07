@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.CompetitionquestionDao">
+    <select id="ListCompetitionquestion" resultType="com.ctfplatform.hznuctf.entity.Competitionquestion">
+     SELECT *
+     FROM competitionquestion
+     ORDER BY competitionquestion_id
+    </select>
+    <select id="ListCompetitionquestionById" resultType="com.ctfplatform.hznuctf.entity.Competitionquestion">
+     SELECT *
+     FROM competitionquestion
+     WHERE competition_id=#{competitionId}
+    </select>
+    <insert id="insertCompetitionquestion" parameterType="com.ctfplatform.hznuctf.entity.Competitionquestion">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="competitionquestionId">
+            select max(competitionquestion_id)+1 as competitionquestionId from competitionquestion
+        </selectKey>
+        INSERT INTO
+        competitionquestion(competitionquestion_id,competition_id,question_id,is_unlocked)
+        VALUES
+        (#{competitionquestionId},#{competitionId},#{questionId},#{isUnlocked})
+    </insert>
+    <update id="updateCompetitionquestion" parameterType="com.ctfplatform.hznuctf.entity.Competitionquestion">
+        UPDATE competitionquestion
+        <set>
+            <if test="isUnlocked!=null">is_unlocked=#{isUnlocked}</if>
+        </set>
+        WHERE
+        competition_id=#{competitionId} AND question_id=#{questionId}
+    </update>
+    <delete id="deleteCompetitionquestion" parameterType="com.ctfplatform.hznuctf.entity.Competitionquestion">
+        DELETE FROM
+        competitionquestion
+        WHERE
+        competition_id=#{competitionId} AND question_id=#{questionId}
+    </delete>
+    <delete id="deleteCompetitionquestionByCompetitionId" parameterType="com.ctfplatform.hznuctf.entity.Competitionquestion">
+        DELETE FROM
+        competitionquestion
+        WHERE
+        competition_id=#{competitionId}
+    </delete>
+</mapper>

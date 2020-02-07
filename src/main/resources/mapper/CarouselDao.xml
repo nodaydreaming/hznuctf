@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.CarouselDao">
+    <select id="queryCarouselById" resultType="com.ctfplatform.hznuctf.entity.Carousel">
+        SELECT *
+        FROM carousel
+        WHERE carousel_id=#{carouselId}
+    </select>
+    <select id="ListCarousel" resultType="com.ctfplatform.hznuctf.entity.Carousel">
+     SELECT *
+     FROM carousel
+     ORDER BY carousel_id
+    </select>
+    <select id="querySelectedCarousel" resultType="com.ctfplatform.hznuctf.entity.Carousel">
+     SELECT *
+     FROM carousel
+     WHERE isSelected = 1
+    </select>
+    <!--insert ignore into 如果主键重复则则跳过 返回成功数0-->
+    <insert id="insert" parameterType="com.ctfplatform.hznuctf.entity.Carousel"
+    useGeneratedKeys="true" keyProperty="carouselId" keyColumn="carousel_id">
+        INSERT IGNORE INTO
+        carousel(carousel_id,image,isSelected,intro)
+        VALUES
+        (#{carouselId},#{image},#{isSelected},#{intro})
+    </insert>
+    <update id="update" parameterType="com.ctfplatform.hznuctf.entity.Carousel">
+        UPDATE carousel
+        <set>
+            <if test="isSelected!=null">isSelected=#{isSelected},</if>
+            <if test="intro!=null">intro=#{intro}</if>
+        </set>
+        WHERE
+        carousel_id=#{carouselId}
+    </update>
+    <update id="removeAllSelectedCarousel" parameterType="com.ctfplatform.hznuctf.entity.Carousel">
+        UPDATE carousel
+        <set>
+            isSelected = 0
+        </set>
+        WHERE
+        isSelected = 1
+    </update>
+    <delete id="delete" parameterType="com.ctfplatform.hznuctf.entity.Carousel">
+        DELETE FROM
+        carousel
+        WHERE
+        carousel_id=#{carouselId}
+    </delete>
+</mapper>

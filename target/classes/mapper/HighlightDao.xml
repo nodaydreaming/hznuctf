@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.HighlightDao">
+    <select id="queryHighlightByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Highlight">
+        SELECT *
+        FROM highlight
+        WHERE competition_id=#{competitionId}
+    </select>
+    <select id="queryGradeHighlightByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Highlight">
+        SELECT *
+        FROM highlight
+        WHERE competition_id=#{competitionId} AND forGrade = 1
+    </select>
+    <select id="queryOtherHighlightByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Highlight">
+        SELECT *
+        FROM highlight
+        WHERE competition_id=#{competitionId} AND forGrade = 0
+    </select>
+    <insert id="insert" parameterType="com.ctfplatform.hznuctf.entity.Highlight">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="highlightId">
+            select max(highlight_id)+1 as highlightId from highlight
+        </selectKey>
+        INSERT INTO
+        highlight(highlight_id,competition_id,highlight_intro,image,image_intro,forGrade)
+        VALUES
+        (#{highlightId},#{competitionId},#{highlightIntro},#{image},#{imageIntro},#{forGrade})
+    </insert>
+    <delete id="delete" parameterType="com.ctfplatform.hznuctf.entity.Highlight">
+        DELETE FROM
+        highlight
+        WHERE competition_id = #{competitionId}
+    </delete>
+    <delete id="deleteOne" parameterType="com.ctfplatform.hznuctf.entity.Highlight">
+        DELETE FROM
+        highlight
+        WHERE highlight_id = #{highlightId}
+    </delete>
+</mapper>

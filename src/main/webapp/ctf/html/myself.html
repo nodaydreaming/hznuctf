@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="../navAndFooter.css">
+  <link rel="stylesheet" href="../css/myself.css">
+  <link rel="stylesheet" href="../css/xcConfirm.css">
+  <link rel="icon" href="../img/dunpai.ico" type="image/x-ico">
+  <script src="../js/echarts.min.js"></script>
+  <title>个人信息</title>
+</head>
+
+<body>
+<nav>
+    <div class="nav-left">
+      <div class="CTF">
+        <span class="word">CTF</span>
+        <span class="CTF-logo">
+         	<img src="../img/dunpai.png" alt="">
+        </span>
+      </div>
+      <p class="HZNU">HZNU</p>
+    </div>
+
+    <div class="nav-middle">
+      <ul>
+        <li class="nav-li-1"><a id="home" href="../home.html">首页</a></li>
+        <li class="nav-li-2"><a id="problemset" href="problemset.html">题库</a></li>
+        <li class="nav-li-3"><a id="challenges" href="challenges.html">赛事</a></li>
+        <li class="nav-li-4"><a id="scoreboard" href="scoreboard.html">积分榜</a></li>
+      </ul>
+    </div>
+
+	<div class="nav-right">
+		<div class="nav-right-a">
+		</div>
+	</div>
+</nav>  
+
+  <div class="login-title">
+    <p>个人信息 | <a href="myrecord.html">答题情况</a></p><hr>
+  </div>
+
+<div class="container">
+<form class="form-horizontal" role="form">
+
+  <div class="form-group">
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label">账号</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="username" type="text" disabled="true" placeholder="3-20个小写字母或数字，用于登录">
+    <p id="usrhint"></p>
+    </div>
+  </div>
+    
+  <div class="form-group">  
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label">密码</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="password" type="password" placeholder="3-20个小写字母或数字，用于登录">
+    <p id="pwdhint"></p>
+    </div>
+  </div>
+    
+  <div class="form-group">   
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label"><span class="star">*</span>性别</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <span><input name="gender" checked="checked" type="radio" class="gender" disabled="true" value="1">男</span>&nbsp;&nbsp;&nbsp;
+
+      <span><input name="gender" type="radio" class="gender" value="0" disabled="true">女</span>
+    </div>
+  </div>
+    
+  <div class="form-group">   
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label">昵称</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="nickname" type="text" placeholder="请输入1-15个字符">
+    <p id="nickhint"></p>
+    </div>
+  </div>
+    
+  <div class="form-group">    
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label"><span class="star">*</span>真实姓名</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="realname" type="text" placeholder="请输入真实姓名" disabled="true">
+    <p id="realhint"></p>
+    </div>
+  </div>
+
+  <div class="form-group">   
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label">邮箱</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="email" type="text" disabled="true" placeholder="请输入邮箱地址">
+    <p id="emailhint"></p>
+    </div>
+  </div>    
+
+  <div class="form-group">   
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label">手机号</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="phone" type="text" placeholder="请输入11位长号">
+    <p id="phonehint"></p>
+    </div>
+  </div>
+    
+  <div class="form-group">    
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label"><span class="star">*</span>学号</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="studentnumber" type="text" placeholder="请输入学号" disabled="true">
+    <p id="stuhint"></p>
+    </div>
+  </div>
+    
+  <div class="form-group">  
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label"><span class="star">*</span>学院</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <select name="" id="academy" class="form-control">
+      <option value="杭州国际服务工程学院" class="register-option">杭州国际服务工程学院</option>
+      <option value="理学院" class="register-option">理学院</option>
+      <option value="文化创意学院" class="register-option">文化创意学院</option>
+      <option value="外国语学院" class="register-option">外国语学院</option>
+      <option value="政治与社会学院" class="register-option">政治与社会学院</option>
+      <option value="经济与管理学院" class="register-option">经济与管理学院</option>
+      <option value="沈钧儒法学院" class="register-option">沈钧儒法学院</option>
+      <option value="教育学院" class="register-option">教育学院</option>
+      <option value="医学院" class="register-option">医学院</option>
+      <option value="材料与化学化工学院" class="register-option">材料与化学化工学院</option>
+      <option value="阿里巴巴商学院" class="register-option">阿里巴巴商学院</option>
+      <option value="经亨颐学院" class="register-option">经亨颐学院</option>
+      <option value="生命与环境科学学院" class="register-option">生命与环境科学学院</option>
+      <option value="体育与健康学院" class="register-option">体育与健康学院</option>
+      <option value="美术学院" class="register-option">美术学院</option>
+      <option value="人文学院" class="register-option">人文学院</option>  
+    </select>
+    </div>
+  </div>
+    
+  <div class="form-group">   
+    <label class="col-xs-offset-3 col-xs-1 col-sm-offset-3 col-sm-1 col-md-offset-3 col-md-1 col-lg-offset-3 col-lg-1 control-label">班级</label>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <input class="form-control" id="classname" type="text" placeholder="请输入专业 + 班级">
+    <p id="classhint"></p>
+    </div>
+  </div>
+  
+  <div class="submit form-group" style="text-align: center;">   
+    <a onclick="submit()" class="btn" style="width: 150px;">提 交</a>
+  </div>
+
+</form>
+</div>
+
+<hr>
+<footer>
+  Copyright &#169; 2019,HZNUNISL, All rights reverved.
+</footer>
+
+  <script src="../js/jquery-3.3.1.js"></script>
+  <script src="../js/myself.js"></script>
+  <script src="../js/xcConfirm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
