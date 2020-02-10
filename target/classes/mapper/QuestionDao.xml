@@ -36,7 +36,7 @@
     </select>
     <select id="ListDoneQuestion" resultType="com.ctfplatform.hznuctf.entity.Question">
      SELECT DISTINCT question_id,question_title,question_typeid,question_body,
-     question_answer,question_resource,question_createtime,question_author,
+     question_answers,question_resources,question_script,question_links,question_createtime,question_author,
      question_point,question_decrease,question_additional,question_level,to_who
      FROM question NATURAL JOIN record
      WHERE user_id = #{userId}
@@ -61,9 +61,9 @@
             select max(question_id)+1 as questionId from question
         </selectKey>
         INSERT INTO
-        question(question_id,question_title,question_typeid,question_body,question_answer,question_resource,question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who,version)
+        question(question_id,question_title,question_typeid,question_body,question_answers,question_resources,question_script,question_links,question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who,version)
         VALUES
-        (#{questionId},#{questionTitle},#{questionTypeid},#{questionBody},#{questionAnswer},#{questionResource},#{questionCreatetime},#{questionAuthor},#{questionPoint},#{questionDecrease},#{questionAdditional},#{questionLevel},#{toWho},#{version})
+        (#{questionId},#{questionTitle},#{questionTypeid},#{questionBody},#{questionAnswers},#{questionResources},#{questionScript},#{questionLinks},#{questionCreatetime},#{questionAuthor},#{questionPoint},#{questionDecrease},#{questionAdditional},#{questionLevel},#{toWho},#{version})
     </insert>
     <update id="updateQuestion" parameterType="com.ctfplatform.hznuctf.entity.Question">
         UPDATE question
@@ -71,8 +71,10 @@
             <if test="questionTitle!=null">question_title=#{questionTitle},</if>
             <if test="questionTypeid!=null">question_typeid=#{questionTypeid},</if>
             <if test="questionBody!=null">question_body=#{questionBody},</if>
-            <if test="questionAnswer!=null">question_answer=#{questionAnswer},</if>
-            <if test="questionResource!=null">question_resource=#{questionResource},</if>
+            <if test="questionAnswers!=null">question_answers=#{questionAnswers},</if>
+            <if test="questionResources!=null">question_resources=#{questionResources},</if>
+            <if test="questionScript!=null">question_script=#{questionScript},</if>
+            <if test="questionLinks!=null">question_links=#{questionLinks},</if>
             <if test="questionCreatetime!=null">question_createtime=#{questionCreatetime},</if>
             <if test="questionAuthor!=null">question_author=#{questionAuthor},</if>
             <if test="questionPoint!=null">question_point=#{questionPoint},</if>

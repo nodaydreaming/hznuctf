@@ -1,5 +1,6 @@
 package com.ctfplatform.hznuctf;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -12,7 +13,7 @@ public class HZNUctfApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
         return builder.sources(HZNUctfApplication.class);
     }
-//注释至此处
+    //注释至此处
     public static void main(String[] args) {
         SpringApplication.run(HZNUctfApplication.class, args);
     }
