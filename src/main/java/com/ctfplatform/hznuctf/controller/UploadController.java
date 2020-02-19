@@ -31,7 +31,7 @@ public class UploadController {
     private String contextPath;
 
     //上传题目资源
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    @RequestMapping(value = "/problemResourceUpload",method = RequestMethod.POST)
     public Map<String, String> uploadaaa(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
         Map<String, String> map = new HashMap<String,String>();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式  HH:mm:ss
@@ -41,6 +41,7 @@ public class UploadController {
         if(!filepath.exists()){
             filepath.mkdirs();
         }
+        System.out.println(file.getOriginalFilename() + file.getSize());
         String originalFilename = file.getOriginalFilename();
         String fileName =  getRandomFileName() + originalFilename;
         File dir = new File(path, fileName);
