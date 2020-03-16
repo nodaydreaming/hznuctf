@@ -4,6 +4,8 @@ var res = str.slice(-15);
 if(res=='createteam.html'){
     $("#challenges").css("color","#00ccff");
 }
+
+
 // 判断是否在当前页 是则导航栏样式改变
 let login = document.getElementsByClassName('nav-right-a')[0];
 
@@ -22,6 +24,7 @@ $.ajax ({
     error : function () {
         console.log("请求失败！");
     }
+
 });
 //判断是否登陆
 
@@ -108,8 +111,24 @@ team.onblur = function(){
 
 var url=location.href;
 var index=url.lastIndexOf("\=");
-id=url.substring(index+1,url.length);
+var id=url.substring(index+1,url.length);
 // 获取url里面的id
+
+$.ajax ({
+    url : '../../competition/queryCompetitionById',
+    type : 'post',
+    data : {"competitionId" : id},
+    scriptCharset : 'utf-8',
+    success : function (result) {
+        if(result.competition != null){
+            $(".competition_title").text(result.competition.competitionTitle);
+        }
+    },
+    error : function () {
+        console.log("请求失败！");
+    }
+    
+});
 
 create = function(){
     if(flag == 1){

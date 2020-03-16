@@ -134,9 +134,9 @@ $.ajax ({
 });    
 //获取通知栏的信息
 
-
 function getList(informationList){
-    for(var i = 0; i < 3; ++i){
+    var length = informationList.length > 3 ? 3 : informationList.length;
+    for(var i = 0; i < length; ++i){
         var content = 
         '<div class="title">'+
             '<h4><a href="html/notice.html?id='+informationList[i].informationId+'">'+informationList[i].informationTitle+'</a></h4>'+
@@ -148,7 +148,6 @@ function getList(informationList){
     }
 }
 //通知栏信息
-
 
 $.ajax ({
     url : '../Questiontype/ListQuestiontype',
@@ -168,8 +167,6 @@ $.ajax ({
     }
 });
 // 获取题目类型
-
-
 function getType(typeList){
     if(typeList.length % 2 == 0){
         for(var i = 0; i < typeList.length; i+=2){

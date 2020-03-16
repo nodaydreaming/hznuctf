@@ -17,6 +17,15 @@ public class Record {
     private String answerBody; //回答内容
     private Integer answerResult; //判断结果
     private Double answerGetPoint; //得分
+    private String recordBody;
+
+    public String getRecordBody() {
+        return recordBody;
+    }
+
+    public void setRecordBody(String recordBody) {
+        this.recordBody = recordBody;
+    }
 
     public Integer getRecordId() {
         return recordId;

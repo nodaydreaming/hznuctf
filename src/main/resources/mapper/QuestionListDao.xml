@@ -4,33 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ctfplatform.hznuctf.dao.QuestionListDao">
     <select id="listQuestionList" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
-        SELECT question_id,question_title,question_type,question_body,question_resource,question_createtime,
-        question_author,question_point,question_decrease,question_additional,question_level,to_who
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
         FROM questiontype,question
         WHERE to_who = 0 AND questiontype.type_id = question.question_typeid
     </select>
     <select id="listQuestionForCompetition" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
-        SELECT question_id,question_title,question_type,question_body,question_resource,question_createtime,
-        question_author,question_point,question_decrease,question_additional,question_level,to_who
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
         FROM questiontype,question
         WHERE to_who = 1 AND questiontype.type_id = question.question_typeid
     </select>
     <select id="listQuestionByCompetitionIdAndTypeId" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
-        SELECT question_id,question_title,question_type,question_body,question_resource,question_createtime,
-        question_author,question_point,question_decrease,question_additional,question_level,to_who,is_unlocked
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who,is_unlocked
         FROM questiontype,question NATURAL JOIN competitionquestion
         WHERE questiontype.type_id = question.question_typeid AND question.question_typeid=#{typeId} AND competition_id=#{competitionId}
         ORDER BY question_level ASC
     </select>
     <select id="listQuestionByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
-        SELECT question_id,question_title,question_type,question_body,question_resource,question_createtime,
-        question_author,question_point,question_decrease,question_additional,question_level,to_who,is_unlocked
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who,is_unlocked
         FROM questiontype,question NATURAL JOIN competitionquestion
         WHERE questiontype.type_id = question.question_typeid  AND competition_id=#{competitionId}
     </select>
     <select id="listAllQuestion" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
-        SELECT question_id,question_title,question_type,question_body,question_answer,question_resource,question_createtime,
-        question_author,question_point,question_decrease,question_additional,question_level,to_who
+        SELECT question_id,question_title,question_type,question_body,question_answers,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
         FROM questiontype,question
         WHERE questiontype.type_id = question.question_typeid
     </select>
@@ -42,14 +42,14 @@
         GROUP BY question_id
     </select>
     <select id="listAcQuestionList" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
-        SELECT question_id,question_title,question_type,question_body,question_resource,question_createtime,
-        question_author,question_point,question_decrease,question_additional,question_level,to_who
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
         FROM questiontype,question NATURAL JOIN generalrecord
         WHERE to_who = 0 AND user_id=#{userId} AND answer_result = 1 AND questiontype.type_id = question.question_typeid
     </select>
     <select id="FuzzyQuery" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
-        SELECT question_id,question_title,question_type,question_body,question_resource,question_createtime,
-        question_author,question_point,question_decrease,question_additional,question_level,to_who
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
         FROM questiontype,question
         WHERE to_who = 0 AND questiontype.type_id = question.question_typeid AND
         (question_title LIKE CONCAT(CONCAT('%',#{text}),'%') OR question_id LIKE CONCAT(CONCAT('%',#{text}),'%'))

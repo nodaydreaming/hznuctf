@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class TeamRecord {
-    private String userNickname;
+    private String userName;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date answerTime;
     private Integer questionId;
@@ -13,6 +13,15 @@ public class TeamRecord {
     private String answerBody;
     private Integer answerResult;
     private Double answerGetPoint;
+    private String recordBody;
+
+    public String getRecordBody() {
+        return recordBody;
+    }
+
+    public void setRecordBody(String recordBody) {
+        this.recordBody = recordBody;
+    }
 
     public Double getAnswerGetPoint() {
         return answerGetPoint;
@@ -22,12 +31,12 @@ public class TeamRecord {
         this.answerGetPoint = answerGetPoint;
     }
 
-    public String getUserNickname() {
-        return userNickname;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getAnswerTime() {

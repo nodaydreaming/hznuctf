@@ -30,7 +30,8 @@ public class TeamcompetitorController {
     private CompetitorDao competitorDao;
     @Autowired
     private QuestionDao questionDao;
-    @RequestMapping(value = "/ListTeamcompetitor",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/ListTeamcompetitor", method = RequestMethod.POST)
     private Map<String,Object> ListTeamcompetitor(){
         Map<String,Object> modelMap = new HashMap<String,Object>();
         List<Teamcompetitor> list = teamcompetitorService.ListTeamcompetitor();
@@ -43,6 +44,7 @@ public class TeamcompetitorController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/ListCompetitor",method = RequestMethod.POST)
     private Map<String,Object> ListCompetitor(int competitionId){
         Map<String,Object> modelMap = new HashMap<String,Object>();
@@ -80,6 +82,7 @@ public class TeamcompetitorController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     private Map<String,Object> delete(Teamcompetitor teamcompetitor){
         Map<String,Object> modelMap = new HashMap<String,Object>();
@@ -94,8 +97,9 @@ public class TeamcompetitorController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    private Map<String,Object> update(Teamcompetitor teamcompetitor){
+    private Map<String,Object> update(Teamcompetitor teamcompetitor) throws IOException {
         Map<String,Object> modelMap = new HashMap<String,Object>();
         Map<String,Object> returnMap = new HashMap<String,Object>();
         returnMap = teamcompetitorService.update(teamcompetitor);
@@ -107,6 +111,7 @@ public class TeamcompetitorController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/exportTranscript",method = RequestMethod.GET)
     private void exportTranscript(int competitionId, HttpServletResponse response) throws IOException {
         List<Question> questionList = questionService.ListQuestionByCompetitionId(competitionId);

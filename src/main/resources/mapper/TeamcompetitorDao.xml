@@ -35,7 +35,7 @@
     <update id="updateTeamcompetitor" parameterType="com.ctfplatform.hznuctf.entity.Teamcompetitor">
         UPDATE teamcompetitor
         <set>
-            <if test="userState!=null">user_state=#{userState}</if>
+            <if test="userState != null">user_state=#{userState}</if>
         </set>
         WHERE
         teamcompetitor_id=#{teamcompetitorId}

@@ -31,6 +31,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/listQuestionByCompetitionId",method = RequestMethod.POST)
     private Map<String,Object> listQuestionByCompetitionId(int competitionId){
         Map<String,Object> modelMap = new HashMap<String, Object>();
@@ -44,6 +45,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/listQuestionForCompetition",method = RequestMethod.POST)
     private Map<String,Object> listQuestionForCompetition(){
         Map<String,Object> modelMap = new HashMap<String, Object>();
@@ -57,6 +59,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/FuzzyQuery",method = RequestMethod.POST)
     private Map<String,Object> FuzzyQuery(String text){
         Map<String,Object> modelMap = new HashMap<String, Object>();
@@ -70,6 +73,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/queryQuestionById",method = RequestMethod.POST)
     private Map<String,Object> queryQuestionById(int id){
         Map<String,Object> modelMap = new HashMap<String, Object>();
@@ -77,6 +81,7 @@ public class QuestionController {
         modelMap.put("question",questionService.queryQuestionByQuestionId(id));
         return modelMap;
     }
+
     @RequestMapping(value = "/listQuestion",method = RequestMethod.POST)
     private Map<String,Object> listQuestion(){
         Map<String,Object> modelMap = new HashMap<String, Object>();
@@ -90,6 +95,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     //常规端练习 判题
     @RequestMapping(value = "/judge",method = RequestMethod.POST)
     private Map<String,Object> judge(int questionId,String answer,HttpServletRequest request){
@@ -114,6 +120,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/listDoneQuestion",method = RequestMethod.POST)
     private Map<String,Object> listDoneQuestion(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String, Object>();
@@ -134,6 +141,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/queryQuestionBytypeId",method = RequestMethod.POST)
     private Map<String,Object> queryQuestionBytypeId(int typeId){
         Map<String,Object> modelMap = new HashMap<String, Object>();
@@ -162,6 +170,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     private Map<String,Object> update(Question question){
         Map<String,Object> modelMap = new HashMap<String,Object>();
@@ -175,6 +184,7 @@ public class QuestionController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     private Map<String,Object> delete(int questionId){
         Map<String,Object> modelMap = new HashMap<String,Object>();

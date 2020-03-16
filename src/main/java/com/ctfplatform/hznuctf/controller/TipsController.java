@@ -47,7 +47,7 @@ public class TipsController {
         if(returnMap.get("message") == null){
             List<Tips> list = tipsService.queryTipsListByCompetitionId(competitionId);
             try {
-                WebSocketController.sendInfoToUsers(competitionId,"noticeList",list);
+                WebSocketController.sendInfoToUsers(competitionId,"noticeList", list);
             } catch (IOException e) {
                 System.out.println("发送该场比赛通知失败");
             }

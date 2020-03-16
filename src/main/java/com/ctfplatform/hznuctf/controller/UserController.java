@@ -37,6 +37,7 @@ public class UserController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/resetPassowrd",method = RequestMethod.POST)
     private Map<String,Object> resetPassword(String userAccount,String userEmail){
         Map<String,Object> modelMap = new HashMap<>();
@@ -65,6 +66,7 @@ public class UserController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/queryUserByuserAccount",method = RequestMethod.POST)
     private Map<String,Object> queryUserByuserAccount(String userAccount){
         Map<String,Object> modelMap = new HashMap<>();
@@ -81,6 +83,7 @@ public class UserController {
         }
         return modelMap;
     }
+
     //登录
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     private Map<String,Object> login(String userAccount, String userPassword, HttpServletRequest request){
@@ -91,7 +94,6 @@ public class UserController {
             returnMap = userService.queryUserByAccountAndPassword(userAccount, userPassword);
             //登录没有错误
             if (returnMap.get("message") == null) {
-
                 //强制类型转换获得User对象
                 User user = (User) returnMap.get("user");
                 user.setUserPassword(userPassword);
@@ -107,6 +109,7 @@ public class UserController {
         }
         return modelMap;
     }
+
     //注册
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     private Map<String,Object> register(User user){
@@ -123,6 +126,7 @@ public class UserController {
         }
         return modelMap;
     }
+
     //获得用户登录状态或者个人状态
     @RequestMapping(value = "/getUserMap",method = RequestMethod.POST)
     private Map<String,Object> getUserMap(HttpServletRequest request){
@@ -132,6 +136,7 @@ public class UserController {
         modelMap.put("loginUser",loginUser);
         return modelMap;
     }
+
     //用户退出
     @RequestMapping(value = "/back",method = RequestMethod.POST)
     private Map<String,Object> back(HttpServletRequest request){
@@ -146,6 +151,7 @@ public class UserController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     private Map<String,Object> update(User user){
         Map<String,Object> modelMap = new HashMap<String,Object>();
@@ -160,6 +166,7 @@ public class UserController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     private Map<String,Object> delete(String userAccount){
         Map<String,Object> modelMap = new HashMap<String,Object>();

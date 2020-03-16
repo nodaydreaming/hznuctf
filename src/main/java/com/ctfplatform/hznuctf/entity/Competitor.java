@@ -27,6 +27,8 @@ public class Competitor {
     private String competitionTitle; //比赛名称
     private Double score;
 
+
+
     public Double getScore() {
         return score;
     }

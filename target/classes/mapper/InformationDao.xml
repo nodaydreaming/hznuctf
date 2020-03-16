@@ -6,7 +6,7 @@
     <select id="ListInformation" resultType="com.ctfplatform.hznuctf.entity.Information">
      SELECT *
      FROM information
-     ORDER BY information_id
+     ORDER BY information_id DESC
     </select>
     <insert id="insertInformation" parameterType="com.ctfplatform.hznuctf.entity.Information">
         <selectKey resultType="Integer" order="BEFORE" keyProperty="informationId">

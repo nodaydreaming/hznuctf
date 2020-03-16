@@ -734,6 +734,7 @@ function del_contest(){
         }
     });
 }
+
 function delCompetition(id){
     $.ajax({
         url : '../../../competition/deleteCompetition',
@@ -766,7 +767,6 @@ function delCompetition(id){
     });
 }
 //发送数据到比赛端
-
 
 Date.prototype.Format = function(fmt) {
     var o = {

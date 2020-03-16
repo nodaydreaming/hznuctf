@@ -109,6 +109,21 @@ $.ajax ({
     success : function (result) {
     if (result.status == 'success') {
         questionList = result.questionList;
+        questionList.forEach(element => {
+            if(element.questionLinks != ""){
+                var resource1 = element.questionLinks;
+                var res1 = resource1.split(",");
+                var resource2 = res1[0];
+                element.questionLinks = resource2;
+            }
+            else{
+                var resource1 = element.questionResources;
+                var res1 = resource1.split(",");
+                var resource2 = res1[0];
+                var res2 = resource2.split("/");
+                element.questionResources = "/hznuctf/downloadResource?filename=" + res2[res2.length - 1];
+            }
+        });
         getQuestion();
     }
     else{
@@ -125,7 +140,13 @@ function getQuestion(){
     if(donequestionList.length != 0){
         for(var i = 0; i < questionList.length; ++i){
             if(questionList[i].questionId == id){
-                var link = '<a href="'+questionList[i].questionResource+'">点击下载题目附件</a>'
+                var link;
+                if(questionList[i].questionLinks != ""){
+                    link = '<a href="http://'+questionList[i].questionLinks+'" target="_blank">'+ questionList[i].questionResources +'</a>';
+                }
+                else {
+                    link = '<a href="'+questionList[i].questionResources+'">点击下载题目附件</a>';
+                }
                 $('.problemid').append(questionList[i].questionId);
                 $('.problemtitle').append(questionList[i].questionTitle);
                 $('.count').append(questionList[i].questionPoint);
@@ -148,18 +169,24 @@ function getQuestion(){
     }
     else{
         for(var i = 0; i < questionList.length; ++i){
-        if(questionList[i].questionId == id){
-            var link = '<a href="'+questionList[i].questionResource+'">点击下载题目附件</a>'
-            $('.problemid').append(questionList[i].questionId);
-            $('.problemtitle').append(questionList[i].questionTitle);
-            $('.count').append(questionList[i].questionPoint);
-            $('.source').append(questionList[i].questionAuthor);
-            $('.attend').append(questionList[i].subNum);
-            $('.getflag').append(questionList[i].acNum);
-            $('.passrate').append(questionList[i].rate);
-            $('.introduce').append(questionList[i].questionBody);
-            $('.annex').append(link);
-        }
+            if(questionList[i].questionId == id){
+                var link;
+                if(questionList[i].questionLinks != ""){
+                    link = '<a href="'+questionList[i].questionResources+'" target="_blank">'+ questionList[i].questionResources +'</a>';
+                }
+                else {
+                    link = '<a href="'+questionList[i].questionResources+'">点击下载题目附件</a>';
+                }
+                $('.problemid').append(questionList[i].questionId);
+                $('.problemtitle').append(questionList[i].questionTitle);
+                $('.count').append(questionList[i].questionPoint);
+                $('.source').append(questionList[i].questionAuthor);
+                $('.attend').append(questionList[i].subNum);
+                $('.getflag').append(questionList[i].acNum);
+                $('.passrate').append(questionList[i].rate);
+                $('.introduce').append(questionList[i].questionBody);
+                $('.annex').append(link);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
         SELECT information_id,admin_name,information_title,information_detail,information_createtime,
         information_summary,forCompetition
         FROM information NATURAL JOIN admin
+        ORDER BY information_id DESC
     </select>
     <select id="FuzzyQueryNotice" resultType="com.ctfplatform.hznuctf.entity.Notice">
         SELECT information_id,admin_name,information_title,information_detail,information_createtime,

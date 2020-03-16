@@ -318,8 +318,8 @@ function getQuestion(){
     for(var i = 0; i < type.length; i++){
         var mytype = type[i];
         if(typename[type[i]].length == 0){
-            var content = '<div style="text-align:center;"><label>暂无该类型题目</label></div>';
-            $('table').after(content);
+            // var content = '<div style="text-align:center;"><label>暂无该类型题目</label></div>';
+            // $('table').after(content);
         }
         else{
             if(typename[type[i]].length < 15){

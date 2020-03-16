@@ -133,7 +133,6 @@
                     <legend>添加题目</legend>
                 </fieldset>
                 <form class="layui-form" action="" style="margin:50px 0 0 5%; font-size:15px">
-                    
                     <div class="layui-form-item">
                         <label class="layui-form-label">题目名称</label>
                         <div class="layui-input-block">
@@ -175,13 +174,45 @@
                           </table>
                         </div>
                         <button type="button" class="layui-btn" id="testListAction" style="margin-left: 30px;">开始上传</button>
-                      </div> 
-                    <!-- <div class="layui-form-item layui-upload" style="margin-top:1%">
-                        <label class="layui-form-label">题目资源</label>
+                    </div>
+
+                    <div class="layui-form-item" id="webDiv" style="border: 1px solid gainsboro">
+                        <p style="font-size: large; margin: 15px 0 15px 30px;">web题目链接</p>
+                        
+                        <label class="layui-form-label" style="text-align: center;">链接</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="link" lay-verify="required" name="link" autocomplete="off" placeholder="请输入链接" class="layui-input" style="width: 500px; margin-bottom: 20px;">
+                        </div>
+                        
+                        <label class="layui-form-label" style="text-align: center;">答案</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="ans" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" style="width: 500px; margin-bottom: 20px;">
+                            <button type="button" class="layui-btn layui-btn-normal" onclick="add()" id="linkList">添加到表格</button>
+                        </div>
+                        
+                        
+                        <div class="" style="padding-left: 30px;">
+                            <table class="layui-table" id="tab" style="width: 90%;">
+                                <thead id="tb">
+                                    <tr>
+                                        <th style="width: 10%;">序号</th>
+                                        <th style="width: 40%;">链接</th>
+                                        <th style="width: 40%;">答案</th>
+                                        <th style="width: 10%;">操作</th>
+                                    </tr
+                                ></thead>
+                                <tbody id="linksList"></tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+
+                    <div class="layui-form-item layui-upload" style="margin-top:1%">
+                        <label class="layui-form-label">题目脚本</label>
                         <button type="button" class="layui-btn layui-btn-normal" id="upload">
                         <i class="layui-icon layui-icon-upload"></i>选择文件</button>
-                        <input class="layui-upload-file" type="file" accept="undefined" name="file">
-                    </div> -->
+                        <input class="layui-upload-file" type="file" name="file">
+                    </div>
 
                     <div class="layui-form-item" style="margin-top:2.5%">
                         <label class="layui-form-label">题目作者</label>
@@ -190,13 +221,12 @@
                         </div>
                     </div>
 
-
-                    <!-- <div class="layui-form-item" style="margin-top:2.5%">
+                    <div class="layui-form-item" style="margin-top:2.5%">
                         <label class="layui-form-label">题目答案</label>
                         <div class="layui-input-block">
                         <input type="text" id="problem_answer" autocomplete="off" placeholder="请输入题目答案" required class="layui-input" style="width: 50%;" onchange="inputLimit()" onkeydown="inputLimit()" onkeyup="inputLimit()">
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="layui-form-item" style="margin-top:2.5%">
                         <div class="layui-input-inline" style="width:30%">
@@ -245,6 +275,10 @@
         <script src="js/add_problem.js" charset="utf-8"></script>
         <div id="LAY_democodejs">
             <script>
+                var form = layui.form,layer = layui.layer;
+                var $ = layui.$;
+                var element = layui.element;
+
                 var uploadInst;
                 var problem_resources= "", problem_answers = "", problem_script = "", problem_links = "";
                 var problem_title, problem_level, problem_type, problem_description, problem_author;
@@ -259,58 +293,99 @@
 
                 function checkWeb(){
                     var temType = $("#type").find('.layui-this').text();
-                    console.log(temType);
+                    var answerDiv = $("#problem_answer").parent().parent();
+                    //console.log(temType);
                     if(temType == "Web"){
                         //修改资源上传部分为：题目链接+答案
+                        $(".layui-form-item.layui-upload")[0].className += " layui-hide";
+                        $("#webDiv")[0].className = "layui-form-item";
+                        answerDiv[0].className = "layui-form-item layui-hide";
                     }
                     else{
+                        answerDiv[0].className = "layui-form-item layui-hide";
+                        $("#webDiv")[0].className = "layui-form-item layui-hide";
                         //还原资源上传部分
+                        var hideDiv = $(".layui-form-item.layui-upload.layui-hide");
+                        if(hideDiv.length != 0){
+                            hideDiv[0].className = "layui-form-item layui-upload";
+                        }
+                    
                     }
                 }
 
-                // layui.use('upload', function() {
-                //     var $ = layui.jquery, upload = layui.upload;
-                //     //普通图片上传使用layui上传图片
-                //     uploadInst = upload.render({
-                //         elem: '#upload'
-                //         , url: '../../../file/upload'
-                //         , accept : 'file'
-                //         , multiple : false
-                //         , auto : false
-                //         , field : 'file'
-                //         , choose: function (obj) { +
-                //             //预读本地文件示例，不支持ie8 +
-                //             obj.preview(function (index, file, result) {
-                //                 problem_address = file.name;
-                //                 //console.log(problem_address);
-                //                 var span = document.createElement("span");
-                //                 span.className = "layui-inline layui-upload-choose";
-                //                 span.innerText=file.name;
-                //                 document.getElementsByClassName("layui-upload")[0].appendChild(span);
-                //             });
-                //         }
-                //         , done: function (res) {
-                //             //如果上传失败
-                //             if (res.status == "error") {
-                //                 return layer.msg('上传失败');
-                //             }
-                //             //上传成功
-                //             else
-                //             {
-                //                 problem_address = res.src;
-                //                 add_Problem(problem_title, problem_type, problem_level, problem_description, problem_address, problem_answer, problem_author, problem_sorce, problem_additional_sorce, problem_sorce_float,problem_towho);
-                //             }
-                //         }
-                //         , error: function () {
-                //             //演示失败状态，并实现重传
-                //             var demoText = $('#demoText');
-                //             demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                //             demoText.find('.demo-reload').on('click', function () {
-                //                 uploadInst.upload();
-                //             });
-                //     }
-                //     });
-                // });
+                var link, ans;
+                var id=1;
+
+                function add() {
+                    link=$("#link").val();
+                    ans=$("#ans").val();
+                    if(link==''){
+                        layer.msg("链接不能为空！");
+                        return false;
+                    }
+                    else if(ans==''){
+                        layer.msg("答案不能为空！");
+                        return false;
+                    }
+                    var trObj = document.createElement("tr");
+                    trObj.id = new Date().getTime();
+                    trObj.innerHTML = "<td><input type='hidden' name='"+id+"' value='"+id+"'>"+id+"</td>" +
+                                    "<td>"+link+"</td>"+
+                                    "<td>"+ans+"</td>"+
+                                    "<td> <button onclick='deleteLink(this)' class='layui-btn layui-btn-xs layui-btn-danger'>删除</button></td>";
+                    document.getElementById("tb").appendChild(trObj);
+                    id++;
+
+                    $("#link").val("");
+                    $("#ans").val("");
+                }
+
+                function deleteLink(obj) {
+                    var trId = obj.parentNode.parentNode.id;
+                    var trObj = document.getElementById(trId);
+                    document.getElementById("tb").removeChild(trObj);
+                }
+
+                layui.use('upload', function() {
+                    var $ = layui.jquery, upload = layui.upload;
+                    
+                    uploadInst = upload.render({
+                        elem: '#upload'
+                        , url: '../../../file/problemScriptUpload'
+                        , accept : 'file'
+                        , multiple : false
+                        , auto : false
+                        , field : 'file'
+                        , choose: function (obj) {
+                            //预读本地文件示例，不支持ie8 +
+                            obj.preview(function (index, file, result) {
+                                var span = document.createElement("span");
+                                span.className = "layui-inline layui-upload-choose";
+                                span.innerText=file.name;
+                                document.getElementsByClassName("layui-upload")[1].appendChild(span);
+                            });
+                        }
+                        , done: function (res) {
+                            //如果上传失败
+                            if (res.status == "error") {
+                                return layer.msg('上传失败');
+                            }
+                            //上传成功
+                            else{
+                                problem_script = res.src;
+                                add_Problem(problem_title, problem_type, problem_level, problem_description, problem_resources, problem_script, problem_answers, problem_links,problem_author, problem_sorce, problem_additional_sorce, problem_sorce_float,problem_towho);
+                            }
+                        }
+                        , error: function () {
+                            //演示失败状态，并实现重传
+                            var demoText = $('#demoText');
+                            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                            demoText.find('.demo-reload').on('click', function () {
+                                uploadInst.upload();
+                            });
+                    }
+                    });
+                });
                 
                 layui.use('upload', function(){
                     var $ = layui.jquery, upload = layui.upload;
@@ -349,9 +424,7 @@
                                     tr.remove();
                                     uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
                                 });
-                                
                                 demoListView.append(tr);
-
                                 problem_resources = "";
                             });
                         }
@@ -374,14 +447,7 @@
                             tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
                         }
                         ,allDone: function(obj){ //当文件全部被提交后，才触发
-                            // console.log(obj);
-                            // console.log("总文件数：" + obj.total); //得到总文件数
-                            // console.log(obj.successful); //请求成功的文件数
-                            // console.log(obj.aborted); //请求失败的文件数
-
-                            // console.log("所有的题目资源地址：" + problem_resources);
                             checkAnswer();
-                            //console.log("对应的答案：" + problem_answers);
                         }
                     });
                 });
@@ -400,38 +466,43 @@
                 }
 
                 function add_problem(){
+                    //针对web题获取web链接与对应的答案
+                    if($("#tab tr").length > 1){
+                        problem_links = "";
+                        problem_answers = "";
+                        var trs = $("#tab tr");
+                        for(var i=1; i<trs.length; ++i){
+                            var tds = trs[i].children;
+                            problem_links += tds[1].innerText + ",";
+                            problem_answers += tds[2].innerText + ",";
+                        }
+                    }
                     problem_title = $("#problem_title").val();
                     problem_type = $("#type").find('.layui-this').attr("lay-value"); 
                     problem_description = $(".tcp_content").val();
                     problem_author = $("#problem_author").val();
-                    problem_answer = $("#problem_answer").val();
+                    if(problem_answers == "" || problem_answers == null){
+                        problem_answers = $("#problem_answer").val();
+                    }
                     problem_sorce = $("#problem_sorce").val();
                     problem_additional_sorce = $("#problem_additional_sorce").val();
                     problem_sorce_float = $("#problem_sorce_float").val();
                     problem_level = $("#problem_level").val();
                     problem_towho= $("#toWho").find('.layui-this').attr("lay-value");
-                    //console.log(problem_title);           
-                    //console.log(problem_type);
-                    //console.log(problem_description);
-                    //console.log(problem_author);
-                    //console.log(problem_answer);
-                    //console.log(problem_sorce);
-                    //console.log(problem_additional_sorce);
-                    //console.log(problem_sorce_float);
-                    //console.log(problem_level);
+
                     if(problem_title == "" || problem_title == null){
-                        layer.msg("题目名称不能为空！", "#problem_title");
+                        layer.msg("题目名称不能为空！");
                     }
                     else if(problem_type == "" || problem_type == null){
-                        layer.msg("题目类型不能为空！", "#type1");
+                        layer.msg("题目类型不能为空！");
                     }
                     else if(problem_description == "" || problem_description == null){
-                        layer.msg("题目内容不能为空！", ".tcp_content ");
+                        layer.msg("题目内容不能为空！");
                     }
                     else if(problem_author == "" || problem_author == null){
                         layer.tips("题目作者不能为空！", "#problem_author");
                     }
-                    else if(problem_answer == "" || problem_answer == null){
+                    else if(problem_answers == "" || problem_answers == null){
                         layer.tips("题目答案不能为空！", "#problem_answer");
                     }
                     else if(problem_sorce == "" || problem_sorce == null){
@@ -449,27 +520,30 @@
                     else if(problem_towho == "" || problem_towho == null){
                         layer.tips("开放对象不能为空！", "#towho1");
                     }
-                    else if(problem_address != ""){
+                    else if($(".layui-upload-choose").length > 0) {
                         uploadInst.upload();
                     }
                     else{
-                        add_Problem(problem_title, problem_type, problem_level, problem_description, problem_address, problem_answer, problem_author, problem_sorce, problem_additional_sorce, problem_sorce_float,problem_towho);
+                        add_Problem(problem_title, problem_type, problem_level, problem_description, problem_resources, problem_script, problem_answers, problem_links,problem_author, problem_sorce, problem_additional_sorce, problem_sorce_float,problem_towho);
                     }
                 }
                 
-                function add_Problem(problem_title, problem_type, problem_level ,problem_description, problem_address, problem_answer, problem_author, problem_sorce, problem_additional_sorce, problem_sorce_float, problem_towho){
-                    /*var problem_data = {"title" : problem_title, 
-                                        "type" : problem_type, 
-                                        "body" : problem_description, 
-                                        "resource" : problem_address,
-                                        "anwser" : problem_answer,  
-                                        "author" : problem_author, 
-                                        "point" : parseInt(problem_sorce),
-                                        "additional" : parseInt(problem_additional_sorce),
-                                        "decrease" : parseFloat(problem_sorce_float),
-                                        "level" : parseInt(problem_level),
-                                        "towho" : problem_towho};*/
-                    // console.log(problem_data);
+                function add_Problem(problem_title, problem_type, problem_level, problem_description, problem_resources, problem_script, problem_answers, problem_links,problem_author, problem_sorce, problem_additional_sorce, problem_sorce_float,problem_towho){
+                    var mydata = {"questionTitle" : problem_title, 
+                                "questionTypeid" : problem_type,
+                                "questionBody" : problem_description, 
+                                "questionResources" : problem_resources,
+                                "questionScript" : problem_script,
+                                //"questionLinks" : problem_links,
+                                "questionAnswers" : problem_answers,
+                                "questionAuthor" : problem_author, 
+                                "questionPoint" : parseInt(problem_sorce),
+                                "questionAdditional" : parseInt(problem_additional_sorce),
+                                "questionDecrease" : parseFloat(problem_sorce_float),
+                                "questionLevel" : parseInt(problem_level),
+                                "toWho" : problem_towho};
+                    console.log(mydata);
+
                     $.ajax({ 
                         url : '../../../question/insert',
                         type : 'post',
@@ -477,8 +551,10 @@
                         data : {"questionTitle" : problem_title, 
                                 "questionTypeid" : problem_type,
                                 "questionBody" : problem_description, 
-                                "questionResource" : problem_address,
-                                "questionAnswer" : problem_answer,
+                                "questionResources" : problem_resources,
+                                "questionScript" : problem_script,
+                                "questionLinks" : problem_links,
+                                "questionAnswers" : problem_answers,
                                 "questionAuthor" : problem_author, 
                                 "questionPoint" : parseInt(problem_sorce),
                                 "questionAdditional" : parseInt(problem_additional_sorce),
@@ -497,6 +573,12 @@
                                     shade: 0.5, //不显示遮罩
                                     title: "HZNUCTF",
                                     yes: function () {
+                                        problem_resources = "";
+                                        problem_script = "";
+                                        problem_answers = "";
+                                        problem_links = "";
+                                        $(".demo-delete").click();
+                                        $(".layui-btn.layui-btn-xs.layui-btn-danger").click()
                                         layer.closeAll();
                                     }
                                 });

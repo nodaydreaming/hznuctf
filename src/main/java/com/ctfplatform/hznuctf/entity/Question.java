@@ -3,8 +3,6 @@ package com.ctfplatform.hznuctf.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
-
-
 //管理端题目列表
 public class Question {
     private Integer questionId;  //题目id

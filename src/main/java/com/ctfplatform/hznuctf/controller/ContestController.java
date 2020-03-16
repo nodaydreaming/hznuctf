@@ -4,6 +4,7 @@ import com.ctfplatform.hznuctf.dao.RecordDao;
 import com.ctfplatform.hznuctf.dao.ScoreListDao;
 import com.ctfplatform.hznuctf.entity.*;
 import com.ctfplatform.hznuctf.service.*;
+import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/contest")
@@ -30,6 +28,8 @@ public class ContestController {
     private RecordDao recordDao;
     @Autowired
     private TeamService teamService;
+    @Autowired
+    private TeamquestionService teamquestionService;
     @Autowired
     private ScoreListDao scoreListDao;
     @Autowired
@@ -59,15 +59,16 @@ public class ContestController {
         Map<String,Object> modelMap = new HashMap<>();
         HttpSession session = request.getSession();
         Competitor competitor = (Competitor) session.getAttribute("CompetitionUser");
-        modelMap.put("loginUser",competitor);    //设置用户对象
-        modelMap.put("banned",session.getAttribute("Banned"));
-        modelMap.put("isfinish",session.getAttribute("isFinished"));
+        modelMap.put("loginUser", competitor);    //设置用户对象
+        modelMap.put("banned", session.getAttribute("Banned"));
+        modelMap.put("isfinish", session.getAttribute("isFinished"));
         return modelMap;
     }
+
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     private Map<String,Object> login(String userAccount, String userPassword, String competitionNumber, HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<>();
-        Competitor competitor = competitorService.login(userAccount,userPassword,competitionNumber);
+        Competitor competitor = competitorService.login(userAccount, userPassword, competitionNumber);
         if(competitor != null){
             if(new Date().before(competitor.getStart())){  //比赛还未开始
                 modelMap.put("status","error");
@@ -85,7 +86,7 @@ public class ContestController {
                     modelMap.put("loginUser", competitor);
                 } else {
                     request.getSession().setAttribute("Banned", 1);
-                    modelMap.put("status", "success");
+                    modelMap.put("status", "error");
                     modelMap.put("message", "您已被禁赛，相关事宜请联系管理员");
                 }
                 //单点登录 上一个登录的人被挤下线
@@ -113,17 +114,96 @@ public class ContestController {
         }
     }
     //发送该场赛事题目
-    public void getQuestionInOneCompetition(int competitionId,int userId){
+    public void getQuestionInOneCompetition(int competitionId, int teamId, int userId){
         Map<String,Object> map = new HashMap<String,Object>();
         //获得该场比赛题目类型列表
         List<Questiontype> typeList = questiontypeService.ListQuestiontypeBycompetitionId(competitionId);
+        //获得此次比赛的所有题目
+        List<QuestionList> questionList = questionListService.queryQuestionByCompetitionId(competitionId);
+        Map<String, Object> tqMap;
+
+        for (int num = 0; num < questionList.size(); ++num) {
+            Question question = questionService.queryQuestionByQuestionId(questionList.get(num).getQuestionId());
+            tqMap = teamquestionService.queryByTeamIdAndCompetitionIdAndQuestionId(teamId, competitionId, questionList.get(num).getQuestionId());
+            if(tqMap.get("teamquestion") == null){
+                Teamquestion tq = new Teamquestion();
+                tq.setTeamId(teamId);
+                tq.setCompetitionId(competitionId);
+                tq.setQuestionId(questionList.get(num).getQuestionId());
+                //找到未分配的资源地址或链接地址
+                if(!questionList.get(num).getQuestionLinks().equals("")){
+                    String[] links = questionList.get(num).getQuestionLinks().split(",");
+                    //如果只有一个链接，则所有队伍使用同一链接
+                    if(links.length > 1) {
+                        Teamquestion teamquestion = null;
+                        int i = -1;
+                        do {
+                            teamquestion = teamquestionService.queryByQuestionResourceOrLink(links[++i]);
+                        } while (teamquestion != null);
+                        questionList.get(num).setQuestionLinks(links[i]);
+
+                        tq.setQuestionLink(links[i]);
+                        tq.setQuestionAnswer(question.getQuestionAnswers().split(",")[i]);
+                    }
+                    else{
+                        questionList.get(num).setQuestionLinks(links[0]);
+
+                        tq.setQuestionLink(links[0]);
+                        tq.setQuestionAnswer(question.getQuestionAnswers().split(",")[0]);
+                    }
+                }
+                else{
+                    String[] resources = questionList.get(num).getQuestionResources().split(",");
+                    //如果只有一个附件，则所有队伍使用同一附件
+                    if(resources.length > 1) {
+                        Teamquestion teamquestion = null;
+                        int i = -1;
+                        do {
+                            teamquestion = teamquestionService.queryByQuestionResourceOrLink(resources[++i]);
+                        } while (teamquestion == null);
+                        questionList.get(num).setQuestionResources(resources[i]);
+
+                        tq.setQuestionSource(resources[i]);
+                        tq.setQuestionAnswer(question.getQuestionAnswers().split(",")[0]);
+                    }
+                    else{
+                        questionList.get(num).setQuestionResources(resources[0]);
+
+                        tq.setQuestionSource(resources[0]);
+                        tq.setQuestionAnswer(question.getQuestionAnswers().split(",")[0]);
+                    }
+                }
+                teamquestionService.insertTeamquestion(tq);
+            }
+            else{
+                Teamquestion tq = (Teamquestion) tqMap.get("teamquestion");
+                questionList.get(num).setQuestionResources(tq.getQuestionSource());
+                questionList.get(num).setQuestionAnswers(tq.getQuestionAnswer());
+                questionList.get(num).setQuestionLinks(tq.getQuestionLink());
+            }
+        }
+
         //获得该场比赛该类型题目列表
         List<QuestionList> QuestionList = null;
-        for(Questiontype questiontype : typeList){
-            map.put(questiontype.getQuestionType(),questionListService.listQuestionByCompetitionIdAndTypeId(competitionId,questiontype.getTypeId()));
+        for(Questiontype questiontype : typeList) {
+            for (QuestionList ques : questionList) {
+                if(ques.getQuestionType().equals(questiontype.getQuestionType())){
+                    if(map.containsKey(questiontype.getQuestionType())){
+                        List<QuestionList> list = (List<QuestionList>)map.get(questiontype.getQuestionType());
+                        list.add(ques);
+                        map.put(questiontype.getQuestionType(), list);
+                    }
+                    else{
+                        List<QuestionList> list = new LinkedList<>();
+                        list.add(ques);
+                        map.put(questiontype.getQuestionType(), list);
+                    }
+                }
+
+            }
         }
         try {
-            WebSocketController.sendInfoToUser(competitionId,userId,"questionList",map);
+            WebSocketController.sendInfoToUser(competitionId, userId,"questionList",map);
         } catch (IOException e) {
             System.out.println("发送单场比赛一种类型题目列表失败");
         }
@@ -174,7 +254,7 @@ public class ContestController {
         }
     }
     //判题
-    public void judge(int competitionId,int questionId,String answer,int teamId,int userId){
+    public void judge(int competitionId,int questionId, String answer,int teamId,int userId){
         synchronized (this) {
             //如果比赛已经结束，则给所有人发送赛事结束通知 不能判题
             Competition competition = competitionService.queryCompetitionById(competitionId);
@@ -211,18 +291,38 @@ public class ContestController {
                     } catch (IOException e) {
                         System.out.println("发送队伍答题记录失败");
                     }
-                } else {//答案错误
+                }
+                else {//答案错误
                     //找到该队伍所有人
                     List<Teamcompetitor> teamCompetitorList = teamcompetitorService.queryTeamByTeamId(teamId);
+                    int teamCompetitiorId = teamCompetitorList.get(0).getTeamcompetitorId();
                     //获取该队伍新的答题记录
                     List<TeamRecord> list = recordDao.queryTeamRecordByTeamId(teamId);
+
                     for (Teamcompetitor teamcompetitor : teamCompetitorList) {
-                        //向该队伍内的人发送新的答题记录
+                        if(teamcompetitor.getUserId() == userId)
+                            teamCompetitiorId = teamcompetitor.getTeamcompetitorId();
                         try {
+                            //向该队伍内的人发送新的答题记录
                             WebSocketController.sendInfoToUser(competitionId, teamcompetitor.getUserId(), "submitRecord", list);
                         } catch (IOException e) {
                             System.out.println("发送队伍答题记录失败");
                         }
+                    }
+                    if(returnMap.get("message").toString().contains("封号")) {
+                        //封号通知
+                        Tips tips = new Tips();
+                        tips.setCompetitionId(competitionId);
+                        tips.setContent(returnMap.get("message").toString());
+                        tips.setPublisher("admin");
+                        tips.setTime(new Date());
+                        tipsService.insertTips(tips);
+                        //封号
+                        //对抄袭选手进行封号
+                        Teamcompetitor teamcompetitor = new Teamcompetitor();
+                        teamcompetitor.setTeamcompetitorId(teamCompetitiorId);
+                        teamcompetitor.setUserState(1);
+                        teamcompetitorService.update(teamcompetitor);
                     }
                 }
             }else{

@@ -1,6 +1,5 @@
 package com.ctfplatform.hznuctf.controller;
 
-
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,7 +48,7 @@ public class WebSocketController {
         //获得题目类型
         contestController.getQuestiontypeBycompetitionId(competitionId,userId);
         //获得题目列表
-        contestController.getQuestionInOneCompetition(competitionId,userId);
+        contestController.getQuestionInOneCompetition(competitionId, teamId, userId);
         //获得通过的题目列表
         contestController.ListTeamAcQuestion(competitionId,userId,teamId);
         //本队答题记录
@@ -88,12 +87,12 @@ public class WebSocketController {
     @OnMessage
     public void onMessage(String message,@PathParam(value = "userId") Integer userId,@PathParam(value = "teamId") Integer teamId){
         JSONObject jo = JSONObject.fromObject(message);
-        if(jo.get("submit")!=null){
+        if(jo.get("submit") != null){
             JSONObject submitText = JSONObject.fromObject(jo.get("submit"));
             int competitionId = (Integer) submitText.get("competitionId");
             int questionId = (Integer) submitText.get("questionId");
             String answer = (String) submitText.get("answer");
-            contestController.judge(competitionId,questionId,answer,teamId,userId);
+            contestController.judge(competitionId, questionId, answer, teamId, userId);
         }
         if(jo.get("getTeamScore") != null){
             JSONObject getTeamScoreText = JSONObject.fromObject(jo.get("getTeamScore"));
@@ -140,7 +139,7 @@ public class WebSocketController {
     /**
      * 单发自定义消息
      * */
-    public static void sendInfoToUser(int competitionId,int userId,String message, Object datas) throws IOException {
+    public static void sendInfoToUser(int competitionId, int userId, String message, Object datas) throws IOException {
         ConcurrentHashMap<Integer,WebSocketController> AccountSessionSet = CompetitionMapSet.get(competitionId);
 //        AccountSessionSet = CompetitionMapSet.get(competitionId);
         if(AccountSessionSet != null) {

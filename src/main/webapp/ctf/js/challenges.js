@@ -150,6 +150,7 @@ function getCompetition(){
                               '<div class="news col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                                 '<ul>'+
                                   '<li><h3 class="racename" style="font-weight: bold;">'+notFinishedCompetitionList[i].competitionTitle+'</h3></li>'+
+                                  '<li>比赛编号：<span class="raceNum">'+notFinishedCompetitionList[i].competitionNumber+'</span></li>'+
                                   '<li>比赛形式：<span class="raceform">'+isteam+'</span></li>'+
                                   '<li>竞赛时间：<span class="racetime">'+starttime+' 至 '+endtime+'</span></li>'+
                                   '<li >查看比赛：<span class="racedetail"><a href="simulation.html?id='+notFinishedCompetitionList[i].competitionId+'">点击查看比赛</a></span></li>'+
@@ -186,6 +187,7 @@ function getCompetition(){
                               '<div class="news col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                                 '<ul>'+
                                   '<li><h3 class="racename" style="font-weight: bold;">'+notFinishedCompetitionList[i].competitionTitle+'</h3></li>'+
+                                  '<li>比赛编号：<span class="raceNum">'+notFinishedCompetitionList[i].competitionNumber+'</span></li>'+
                                   '<li>比赛形式：<span class="raceform">'+isteam+'</span></li>'+
                                   '<li>竞赛时间：<span class="racetime">'+starttime+' 至 '+endtime+'</span></li>'+
                                   '<li >查看比赛：<span class="racedetail"><a href="simulation.html?id='+notFinishedCompetitionList[i].competitionId+'">点击查看比赛</a></span></li>'+
@@ -222,6 +224,7 @@ function getCompetition(){
                           '<div class="news col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                             '<ul>'+
                               '<li><h3 class="racename" style="font-weight: bold;">'+notFinishedCompetitionList[i].competitionTitle+'</h3></li>'+
+                              '<li>比赛编号：<span class="raceNum">'+notFinishedCompetitionList[i].competitionNumber+'</span></li>'+
                               '<li>比赛形式：<span class="raceform">'+isteam+'</span></li>'+
                               '<li>竞赛时间：<span class="racetime">'+starttime+' 至 '+endtime+'</span></li>'+
                               '<li >查看比赛：<span class="racedetail"><a href="simulation.html?id='+notFinishedCompetitionList[i].competitionId+'">点击查看比赛</a></span></li>'+
@@ -267,6 +270,7 @@ function getCompetition(){
                           '<div class="news col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                             '<ul>'+
                               '<li><h3 class="racename" style="font-weight: bold;">'+finishedCompetitionList[i].competitionTitle+'</h3></li>'+
+                              '<li>比赛编号：<span class="raceNum">'+finishedCompetitionList[i].competitionNumber+'</span></li>'+
                               '<li>比赛形式：<span class="raceform">'+isteam+'</span></li>'+
                               '<li>竞赛时间：<span class="racetime">'+starttime+' 至 '+endtime+'</span></li>'+
                               '<li >查看比赛：<span class="racedetail"><a href="simulation.html?id='+finishedCompetitionList[i].competitionId+'">点击查看比赛</a></span></li>'+
@@ -309,6 +313,7 @@ function getCompetition(){
                           '<div class="news col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                             '<ul>'+
                               '<li><h3 class="racename" style="font-weight: bold;">'+finishedCompetitionList[i].competitionTitle+'</h3></li>'+
+                              '<li>比赛编号：<span class="raceNum">'+finishedCompetitionList[i].competitionNumber+'</span></li>'+
                               '<li>比赛形式：<span class="raceform">'+isteam+'</span></li>'+
                               '<li>竞赛时间：<span class="racetime">'+starttime+' 至 '+endtime+'</span></li>'+
                               '<li >查看比赛：<span class="racedetail"><a href="simulation.html?id='+finishedCompetitionList[i].competitionId+'">点击查看比赛</a></span></li>'+
@@ -361,6 +366,7 @@ function getCompetition(){
                                       '<div class="news col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                                         '<ul>'+
                                           '<li><h3 class="racename" style="font-weight: bold;">'+finishedCompetitionList[i].competitionTitle+'</h3></li>'+
+                                          '<li>比赛编号：<span class="raceNum">'+finishedCompetitionList[i].competitionNumber+'</span></li>'+
                                           '<li>比赛形式：<span class="raceform">'+isteam+'</span></li>'+
                                           '<li>竞赛时间：<span class="racetime">'+starttime+' 至 '+endtime+'</span></li>'+
                                           '<li >查看比赛：<span class="racedetail"><a href="simulation.html?id='+finishedCompetitionList[i].competitionId+'">点击查看比赛</a></span></li>'+
@@ -401,6 +407,7 @@ function getCompetition(){
                                       '<div class="news col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                                         '<ul>'+
                                           '<li><h3 class="racename" style="font-weight: bold;">'+finishedCompetitionList[i].competitionTitle+'</h3></li>'+
+                                          '<li>比赛编号：<span class="raceNum">'+finishedCompetitionList[i].competitionNumber+'</span></li>'+
                                           '<li>比赛形式：<span class="raceform">'+isteam+'</span></li>'+
                                           '<li>竞赛时间：<span class="racetime">'+starttime+' 至 '+endtime+'</span></li>'+
                                           '<li >查看比赛：<span class="racedetail"><a href="simulation.html?id='+finishedCompetitionList[i].competitionId+'">点击查看比赛</a></span></li>'+

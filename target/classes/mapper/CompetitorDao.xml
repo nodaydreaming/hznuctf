@@ -15,7 +15,7 @@
     </select>
     <select id="login" resultType="com.ctfplatform.hznuctf.entity.Competitor">
         SELECT *
-        FROM competition,team NATURAL JOIN teamcompetitor NATURAL JOIN user
+        FROM competition, team NATURAL JOIN teamcompetitor NATURAL JOIN user
         WHERE competition_number=#{competitionNumber}
         AND user_account=#{userAccount}
         AND user_password=#{userPassword}

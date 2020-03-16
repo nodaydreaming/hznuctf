@@ -1,5 +1,5 @@
-var WINDOW_WIDTH = document.body.offsetWidth;
-var WINDOW_HEIGHT = document.body.offsetHeight;
+var WINDOW_WIDTH = window.innerWidth;
+var WINDOW_HEIGHT = window.innerHeight;
 var canvas,context;
 var num = 500;
 var stars = [];
@@ -15,7 +15,7 @@ window.onload = function(){
 	context = canvas.getContext('2d');
 
 	addStar();
-	setInterval(render,33);
+	setInterval(render, 33);
 	// liuxing();
 
 	// render();
@@ -38,7 +38,7 @@ function mouseMove(e){
 
 function render(){
 	context.fillStyle = 'rgba(0,0,0,0.1)';
-	context.fillRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
+	context.fillRect(0,0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	// context.clearRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT)
 	for(var i =0; i<num ; i++){
 		var star = stars[i];

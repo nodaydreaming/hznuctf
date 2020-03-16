@@ -199,6 +199,8 @@ classname.onblur = function(){
 }
 
 register = function(){
+    gender = $('input[name=gender]:checked').val();
+    academy = document.getElementById('academy');
     if(flag == 1){
         $.ajax({
             url:'../../user/register',

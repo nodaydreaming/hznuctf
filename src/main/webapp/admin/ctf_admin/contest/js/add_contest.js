@@ -88,8 +88,8 @@ function add_contest(){
         uploadInst.upload();
     }
     else {
-        add_Contest(contest_title, contest_starttime,contest_endtime,contest_number, contest_organizer, contest_intro, contest_target, contest_plan, contest_rule, contest_reward, contest_registration,contest_type, photo)
-        }
+        add_Contest(contest_title, contest_starttime,contest_endtime,contest_number, contest_organizer, contest_intro, contest_target, contest_plan, contest_rule, contest_reward, contest_registration,contest_type, photo);
+    }
 }
 
 layui.use('upload', function() {

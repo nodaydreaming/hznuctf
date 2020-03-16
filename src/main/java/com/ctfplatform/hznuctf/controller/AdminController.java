@@ -40,6 +40,7 @@ public class AdminController {
         }
         return modelMap;
     }
+
     //显示所有管理员
     @RequestMapping(value = "/listAdmin",method = RequestMethod.POST)
     private Map<String,Object> listAdmin(){
@@ -54,6 +55,7 @@ public class AdminController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/reset",method = RequestMethod.POST)
     private Map<String,Object> reset(String adminAccount){
         Map<String,Object> modelMap = new HashMap<>();
@@ -86,9 +88,10 @@ public class AdminController {
         }
         return modelMap;
     }
+
     //管理员修改个人信息
     @RequestMapping(value = "/updateSelf",method = RequestMethod.POST)
-    private Map<String,Object> updateSelf(Admin admin,HttpServletRequest request){
+    private Map<String,Object> updateSelf(Admin admin, HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object>();
         Map<String,Object> returnMap = new HashMap<String,Object>();
         returnMap = adminService.update(admin);
@@ -101,6 +104,7 @@ public class AdminController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     private Map<String,Object> delete(String adminAccount){
         Map<String,Object> modelMap = new HashMap<String,Object>();
@@ -114,6 +118,7 @@ public class AdminController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/back",method = RequestMethod.POST)
     private Map<String,Object> back(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object>();
@@ -127,6 +132,7 @@ public class AdminController {
         }
         return modelMap;
     }
+
     //获得用户登录状态或者个人状态
     @RequestMapping(value = "/getAdminMap",method = RequestMethod.POST)
     private Map<String,Object> getAdminMap(HttpServletRequest request){
@@ -136,6 +142,7 @@ public class AdminController {
         modelMap.put("loginAdmin",loginAdmin);
         return modelMap;
     }
+
     //管理员获得自己信息
     @RequestMapping(value = "/getAdminSelf",method = RequestMethod.POST)
     private Map<String,Object> getAdminSelf(HttpServletRequest request){

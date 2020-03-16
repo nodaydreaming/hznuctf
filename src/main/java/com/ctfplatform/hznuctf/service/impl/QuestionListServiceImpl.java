@@ -15,6 +15,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -114,14 +115,34 @@ public class QuestionListServiceImpl implements QuestionListService {
     public List<QuestionList> listAllQuestionList() {
         List<QuestionList> list = questionListDao.listAllQuestion();
         for(QuestionList questionList : list){
-            String answer = null;
-            RSA rsa = new RSA();
-            try {
-                answer = RSA.testDecrypt(RSA.publicKey,questionList.getQuestionAnswer());
-                questionList.setQuestionAnswer(answer);
-            } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IllegalBlockSizeException
-                    | BadPaddingException | InvalidKeyException | IOException e ) {
-                System.out.println("RSA解密失败");
+            String anwser = null;
+            if(questionList.getQuestionAnswers().contains(",")) {
+                //加密后的题目答案数组
+                String[] questionAnswers = questionList.getQuestionAnswers().split(",");
+                try {
+                    //对答案逐个解密
+                    for (int i = 0; i < questionAnswers.length; ++i) {
+                        anwser = RSA.testDecrypt(RSA.privateKey, questionAnswers[i]);
+                        questionAnswers[i] = anwser;
+                    }
+                    //将解密后的答案数组填回question
+                    //将解密后的答案数组填回question
+                    String s = Arrays.toString(questionAnswers);
+                    questionList.setQuestionAnswers(s.substring(1, s.length()-1));
+                } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IllegalBlockSizeException
+                        | BadPaddingException | InvalidKeyException | IOException e) {
+                    System.out.println("RSA解密失败");
+                }
+            }
+            else{
+                try {
+                    //对答案逐个解密
+                    anwser = RSA.testDecrypt(RSA.privateKey, questionList.getQuestionAnswers());
+                } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IllegalBlockSizeException
+                        | BadPaddingException | InvalidKeyException | IOException e) {
+                    System.out.println("RSA解密失败");
+                }
+                questionList.setQuestionAnswers(anwser);
             }
         }
         return list;

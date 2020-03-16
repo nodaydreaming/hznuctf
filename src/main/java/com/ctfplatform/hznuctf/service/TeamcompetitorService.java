@@ -13,6 +13,7 @@ public interface TeamcompetitorService {
     Map<String,Object> delete(Teamcompetitor teamcompetitor);
 
     //禁赛解禁选手
-    Map<String,Object> update(Teamcompetitor teamcompetitor);
+    Map<String,Object> update(Teamcompetitor teamcompetitorId);
+
     List<Teamcompetitor> queryTeamByTeamId(int teamId);
 }

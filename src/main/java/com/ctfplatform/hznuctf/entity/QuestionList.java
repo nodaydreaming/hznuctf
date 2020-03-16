@@ -11,8 +11,11 @@ public class QuestionList {
     private String questionTitle; //题目标题
     private String questionType; //题目类型
     private String questionBody; //题目描述
-    private String questionResource; //题目资源
-    private String questionAnswer; //题目答案
+    private String questionResources; //题目资源（一个或多个）
+    private String questionScript;//实现动态flag的脚本程序（可为空）
+    //web题的链接数组，若数组个数为1，则为单链接web题目，数组个数大于1，为docker实现多链接web题目
+    private String questionLinks;
+    private String questionAnswers; //题目答案（一个或多个）
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date questionCreatetime; //题目创建时间
     private String questionAuthor; //题目作者
@@ -32,14 +35,6 @@ public class QuestionList {
 
     public void setIsUnlocked(Integer isUnlocked) {
         this.isUnlocked = isUnlocked;
-    }
-
-    public String getQuestionAnswer() {
-        return questionAnswer;
-    }
-
-    public void setQuestionAnswer(String questionAnswer) {
-        this.questionAnswer = questionAnswer;
     }
 
     public Double getRate() {
@@ -66,12 +61,36 @@ public class QuestionList {
         this.questionBody = questionBody;
     }
 
-    public String getQuestionResource() {
-        return questionResource;
+    public String getQuestionResources() {
+        return questionResources;
     }
 
-    public void setQuestionResource(String questionResource) {
-        this.questionResource = questionResource;
+    public void setQuestionResources(String questionResources) {
+        this.questionResources = questionResources;
+    }
+
+    public String getQuestionScript() {
+        return questionScript;
+    }
+
+    public void setQuestionScript(String questionScript) {
+        this.questionScript = questionScript;
+    }
+
+    public String getQuestionLinks() {
+        return questionLinks;
+    }
+
+    public void setQuestionLinks(String questionLinks) {
+        this.questionLinks = questionLinks;
+    }
+
+    public String getQuestionAnswers() {
+        return questionAnswers;
+    }
+
+    public void setQuestionAnswers(String questionAnswers) {
+        this.questionAnswers = questionAnswers;
     }
 
     public Date getQuestionCreatetime() {

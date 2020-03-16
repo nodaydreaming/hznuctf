@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
         String pass = null;
         RSA rsa = new RSA();
         try {
-            pass = RSA.testEncrypt(RSA.privateKey,password);
+            pass = RSA.testEncrypt(RSA.publicKey, password);
             User user = new User();
             user = userDao.queryUserByAccountAndPassword(account,pass);
             if(user != null){
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
             String pass = null;
             RSA rsa = new RSA();
             try {
-                pass = RSA.testDecrypt(RSA.publicKey, password);   //解密
+                pass = RSA.testDecrypt(RSA.privateKey, password);   //解密
                 user.setUserPassword(pass);
                 modelMap.put("user", user);     //返回user对象
             } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IllegalBlockSizeException
@@ -172,7 +172,7 @@ public class UserServiceImpl implements UserService {
                                             //RSA加密
                                             RSA rsa = new RSA();
                                             try {
-                                                pass = RSA.testEncrypt(RSA.privateKey, password);
+                                                pass = RSA.testEncrypt(RSA.publicKey, password);
                                                 user.setUserPassword(pass);
                                             } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IllegalBlockSizeException
                                                     | BadPaddingException | InvalidKeyException | IOException e) {
@@ -241,7 +241,7 @@ public class UserServiceImpl implements UserService {
                                     //RSA加密
                                     RSA rsa = new RSA();
                                     try {
-                                        pass = RSA.testEncrypt(RSA.privateKey, password);
+                                        pass = RSA.testEncrypt(RSA.publicKey, password);
                                         user.setUserPassword(pass);
                                     } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IllegalBlockSizeException
                                             | BadPaddingException | InvalidKeyException | IOException e) {

@@ -36,8 +36,10 @@ $.ajax ({
         	loginUser = result.loginUser;
         	competitionId = loginUser.competitionId;
         	teamId = loginUser.teamId;
-        	title = loginUser.title;
+        	title = loginUser.competitionTitle;
         	$(".title").html(title);
+
+			countTime();
 
         	if(result.banned == 1){
         		banned = 1;
@@ -54,7 +56,7 @@ $.ajax ({
 	        	$(".finish").html("比赛进行中")
 	        }
 			//连接地址参数为ip地址
-            var url = "ws://172.22.236.10:8080/hznuctf/websocket/"+loginUser.userId+"/"+competitionId+"/"+loginUser.teamId;
+            var url = "ws://localhost:8080/hznuctf/websocket/"+loginUser.userId+"/"+competitionId+"/"+loginUser.teamId;
             ws = new WebSocket(url);
 
             //连接建立成功
@@ -113,6 +115,32 @@ $.ajax ({
 });
 // 判断是否登陆
 
+function countTime() {
+	//获取当前时间
+	var date = new Date();
+	var now = date.getTime();
+	//设置截止时间
+	var endDate = new Date(loginUser.end);
+	var end = endDate.getTime();
+	//时间差
+	var leftTime = end-now;
+	//定义变量 d,h,m,s保存倒计时的时间
+	var d,h,m,s;
+	if (leftTime>=0) {
+		d = Math.floor(leftTime/1000/60/60/24);
+		h = Math.floor(leftTime/1000/60/60%24);
+		m = Math.floor(leftTime/1000/60%60);
+		s = Math.floor(leftTime/1000%60);                   
+	}
+	//将倒计时赋值到div中
+	document.getElementById("_d").innerHTML = d+"天";
+	document.getElementById("_h").innerHTML = h+"时";
+	document.getElementById("_m").innerHTML = m+"分";
+	document.getElementById("_s").innerHTML = s+"秒";
+	//递归每秒调用countTime方法，显示动态时间效果
+	setTimeout(countTime,1000);
+}
+
 //日期转换
 Date.prototype.format = function(fmt) {
     var o = {
@@ -135,7 +163,6 @@ Date.prototype.format = function(fmt) {
     return fmt;
 }
 
-
 function toDate(obj) {
     var date = new Date();
     date.setTime(obj.time);
@@ -150,6 +177,7 @@ function  toHoursAndMinutes(obj) {
     date.setMinutes(obj.minutes);
     return date.format("hh:mm"); //调用Date.prototype.format方法
 }
+
 function beSqueezed(){
     $.ajax ({
         url : '../../contest/back',
@@ -166,16 +194,18 @@ function beSqueezed(){
         }
     });
 }
+
 function getOut(isBanned){
     $.ajax ({
         url : '../../contest/back',
         type : 'post',
         scriptCharset : 'utf-8',
         success : function (result) {
-        	if(isBanned == 'true') {
-                var txt = "您已被禁赛！请重新登录";
+            var txt;
+        	if(isBanned === "true") {
+                txt = "您已被禁赛！请重新登录";
             }else{
-        		var txt = '您已被解禁！请重新登录';
+        	    txt = '您已被解禁！请重新登录';
 			}
             window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
             $('.ok').click(function(){
@@ -186,6 +216,7 @@ function getOut(isBanned){
         }
     });
 }
+
 function finish(){
     $.ajax ({
         url : '../../contest/back',
@@ -202,6 +233,7 @@ function finish(){
         }
     });
 }
+
 function getType(){
 	$('.problemtype').html("");
 	for(var i = 0 ; i < typeList.length ; i++){
@@ -216,7 +248,6 @@ function getType(){
 
 
 function getQuestion(){
-
     allQuestion.length = 0;
     for(var i = 0; i < typeList.length; i++){
         type = typeList[i].questionType;
@@ -274,7 +305,22 @@ function getBody(questionId){
 			$('.form-inline').html("");
 			$('.questiontitle').append(allQuestion[i].questionTitle);
 			$('.introduce').append(allQuestion[i].questionBody);
-			$('.annex').attr('href',allQuestion[i].questionResource);
+			if(allQuestion[i].questionResources != ""){
+				var resource1 = allQuestion[i].questionResources;
+                var res1 = resource1.split(",");
+                var resource2 = res1[0];
+                var res2 = resource2.split("/");
+				allQuestion[i].questionResources = res2[res2.length - 1];
+				
+				$('.annex').text('点击下载题目附件');
+				$('.annex').attr('href', "/hznuctf/downloadResource?filename="+allQuestion[i].questionResources);
+				$('.annex').attr('target', '');
+			}
+			else{
+				$('.annex').attr('href', "http://"+allQuestion[i].questionLinks);
+				$('.annex').text(allQuestion[i].questionLinks);
+				$('.annex').attr('target', '_blank');
+			}
 			var content = 
 			'<input type="text" class="answer form-control" id="answer" placeholder="请输入答案">'+
 			'<a class="btn submitbtn" id="myBtn" onclick="submit('+questionId+')"><i class="fas fa-flag"></i></a>';
@@ -297,7 +343,7 @@ function submit(questionId){
 	id = competitionId;
 	myAnswer = answer.value;
 	var submitObj = {'submit':
-	{'competitionId':id,'questionId':questionId,'answer':myAnswer}
+		{'competitionId':id,'questionId':questionId,'answer':myAnswer}
 	};
 	var submitJSON = JSON.stringify(submitObj);
 	if(isfinish == 1){
@@ -339,13 +385,12 @@ function submitRecord(){
 		var time = toHoursAndMinutes(recordList[i].answerTime);
 		var content =
 		'<tr>'+
-			'<td style="border:none" class="userNickname" title='+recordList[i].userNickname+'>'+recordList[i].userNickname+'</td>'+
-			'<td style="border:none">'+time+'</td>'+
+			'<td style="border:none" class="userNickname" title='+recordList[i].userName+'>'+recordList[i].userName+'</td>'+
 			'<td style="border:none">'+recordList[i].questionId+'</td>'+
-			'<td style="border:none">'+recordList[i].questionType+'</td>'+
 			'<td style="border:none" class="flagcontent" title='+recordList[i].answerBody+'>'+recordList[i].answerBody+'</td>'+
 			'<td style="border:none" id="'+i+'"><i class="fas fa-times" style="color: red"></i></td>'+
 			'<td style="border:none">'+recordList[i].answerGetPoint+'</td>'+
+			'<td style="border:none; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;" title="'+recordList[i].recordBody+'">'+recordList[i].recordBody+'</td>'+
 		'</tr>'
 		$("#submit").prepend(content);
 
@@ -368,7 +413,7 @@ function getNotice(){
 		for(var i = 0 ; i < noticeList.length; i++){
 			var time = toDate(noticeList[i].time);
 			var news =
-			'<p><span class="author">['+noticeList[i].publisher+']</span>'+noticeList[i].content+'<span class="time"> ['+time+']</span></p>'
+			'<p><span class="author">['+noticeList[i].publisher+']</span>'+"&nbsp;&nbsp;"+noticeList[i].content+'<span class="time"> ['+time+']</span></p>'
 			$(".news").prepend(news);
 		}
 	}
@@ -382,7 +427,7 @@ function getRadar(){
 	for(var i = 0; i < allQuestion.length; i++){
 		radarMax.push({
             text:'Pro'+allQuestion[i].questionId+'',
-            max: 150,
+            max: 600,
         });
         radarValue.push(0);
 	}

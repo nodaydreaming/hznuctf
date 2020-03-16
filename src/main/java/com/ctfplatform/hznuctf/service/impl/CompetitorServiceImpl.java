@@ -24,11 +24,11 @@ public class CompetitorServiceImpl implements CompetitorService {
         RSA rsa = new RSA();
         String pass = null;
         try {
-            pass = RSA.testEncrypt(RSA.privateKey,userPassword);
+            pass = RSA.testEncrypt(RSA.publicKey,userPassword);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | IllegalBlockSizeException
                 | BadPaddingException | InvalidKeyException | IOException e ) {
             System.out.println("RSA解密失败");
         }
-        return competitorDao.login(userAccount,pass,competitionNumber);
+        return competitorDao.login(userAccount, pass, competitionNumber);
     }
 }

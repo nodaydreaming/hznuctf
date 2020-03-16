@@ -32,7 +32,7 @@ public class UploadController {
 
     //上传题目资源
     @RequestMapping(value = "/problemResourceUpload",method = RequestMethod.POST)
-    public Map<String, String> uploadaaa(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
+    public Map<String, String> problemResourceUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
         Map<String, String> map = new HashMap<String,String>();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式  HH:mm:ss
         String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
@@ -50,11 +50,37 @@ public class UploadController {
             map.put("status", "success");
             map.put("src", contextPath+"/upload/problemResource/" + fileName);
         }catch (IOException e){
+            map.put("status", "error");
             map.put("message", "上传失败！");
         }
         return map;
-
     }
+    //上传题目脚本
+    @RequestMapping(value = "/problemScriptUpload", method = RequestMethod.POST)
+    public Map<String, String> problemScriptUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response){
+        Map<String, String> map = new HashMap<String,String>();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式  HH:mm:ss
+        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        String path = request.getSession().getServletContext().getRealPath("/upload/problemScript");
+        File filepath = new File(path);
+        if(!filepath.exists()){
+            filepath.mkdirs();
+        }
+        System.out.println(file.getOriginalFilename() + file.getSize());
+        String originalFilename = file.getOriginalFilename();
+        String fileName =  getRandomFileName() + originalFilename;
+        File dir = new File(path, fileName);
+        try {
+            file.transferTo(dir);
+            map.put("status", "success");
+            map.put("src", contextPath+"/upload/problemScript/" + fileName);
+        }catch (IOException e){
+            map.put("status", "error");
+            map.put("message", "上传失败！");
+        }
+        return map;
+    }
+
     //上传管理员头像
     @RequestMapping(value = "/uploadImg",method = RequestMethod.POST)
     public Map<String, String> uploadImg(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{

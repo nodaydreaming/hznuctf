@@ -19,12 +19,12 @@
         WHERE user_id=#{userId}
     </select>
     <select id="queryTeamRecordByTeamId" resultType="com.ctfplatform.hznuctf.entity.TeamRecord">
-        SELECT user_nickname,answer_time,question_id,question_type,answer_body,answer_result,answer_get_point
-        FROM user NATURAL JOIN record NATURAL JOIN question,questiontype
+        SELECT user_name, answer_time, question_id, question_type, answer_body, answer_result, answer_get_point, record_body
+        FROM user NATURAL JOIN record NATURAL JOIN question, questiontype
         WHERE team_id=#{teamId} AND question.question_typeid=questiontype.type_id
     </select>
     <select id="listAcQuestion" resultType="com.ctfplatform.hznuctf.entity.Record">
-        SELECT DISTINCT question_id,MAX(answer_get_point) AS answer_get_point
+        SELECT DISTINCT question_id, MAX(answer_get_point) AS answer_get_point
         FROM record
         WHERE team_id=#{teamId} AND answer_result=1
         GROUP BY question_id
@@ -32,9 +32,8 @@
     <insert id="insert" parameterType="com.ctfplatform.hznuctf.entity.Record"
     useGeneratedKeys="true" keyColumn="record_id" keyProperty="recordId">
         INSERT IGNORE INTO
-        record(record_id,competition_id,question_id,team_id,user_id,answer_time,answer_body,answer_result,answer_get_point)
+        record(record_id,competition_id,question_id,team_id,user_id,answer_time,answer_body,answer_result,answer_get_point,record_body)
         VALUES
-        (#{recordId},#{competitionId},#{questionId},#{teamId},#{userId},#{answerTime},#{answerBody},#{answerResult},
-        #{answerGetPoint})
+        (#{recordId},#{competitionId},#{questionId},#{teamId},#{userId},#{answerTime},#{answerBody},#{answerResult},#{answerGetPoint},#{recordBody})
     </insert>
 </mapper>
