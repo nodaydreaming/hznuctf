@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.QuestionListDao">
+    <select id="listQuestionList" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
+        FROM questiontype,question
+        WHERE to_who = 0 AND questiontype.type_id = question.question_typeid
+    </select>
+    <select id="listQuestionForCompetition" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
+        FROM questiontype,question
+        WHERE to_who = 1 AND questiontype.type_id = question.question_typeid
+    </select>
+    <select id="listQuestionByCompetitionIdAndTypeId" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who,is_unlocked
+        FROM questiontype,question NATURAL JOIN competitionquestion
+        WHERE questiontype.type_id = question.question_typeid AND question.question_typeid=#{typeId} AND competition_id=#{competitionId}
+        ORDER BY question_level ASC
+    </select>
+    <select id="listQuestionByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who,is_unlocked
+        FROM questiontype,question NATURAL JOIN competitionquestion
+        WHERE questiontype.type_id = question.question_typeid  AND competition_id=#{competitionId}
+    </select>
+    <select id="listAllQuestion" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,question_title,question_type,question_body,question_answers,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
+        FROM questiontype,question
+        WHERE questiontype.type_id = question.question_typeid
+    </select>
+    <select id="getAcNumSubNumRate" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,
+        SUM(CASE WHEN answer_result = 1 THEN 1 ELSE 0 END) as acNum,COUNT(*) as subNum
+        FROM question NATURAL JOIN generalrecord
+        WHERE to_who = 0
+        GROUP BY question_id
+    </select>
+    <select id="listAcQuestionList" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
+        FROM questiontype,question NATURAL JOIN generalrecord
+        WHERE to_who = 0 AND user_id=#{userId} AND answer_result = 1 AND questiontype.type_id = question.question_typeid
+    </select>
+    <select id="FuzzyQuery" resultType="com.ctfplatform.hznuctf.entity.QuestionList">
+        SELECT question_id,question_title,question_type,question_body,question_resources,question_script,question_links,
+        question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who
+        FROM questiontype,question
+        WHERE to_who = 0 AND questiontype.type_id = question.question_typeid AND
+        (question_title LIKE CONCAT(CONCAT('%',#{text}),'%') OR question_id LIKE CONCAT(CONCAT('%',#{text}),'%'))
+    </select>
+</mapper>

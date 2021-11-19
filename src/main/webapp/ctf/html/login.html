@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../navAndFooter.css">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/xcConfirm.css">
+  <link rel="icon" href="../img/dunpai.ico" type="image/x-ico">
+  <title>欢迎登录</title>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-left">
+      <div class="CTF">
+        <span class="word">CTF</span>
+        <span class="CTF-logo">
+          <img src="../img/dunpai.png" alt="">
+        </span>
+      </div>
+      <p class="HZNU">HZNU</p>
+    </div>
+
+    <div class="nav-middle">
+      <ul>
+        <li class="nav-li-1"><a id="home" href="../home.html">首页</a></li>
+        <li class="nav-li-2"><a id="problemset" href="problemset.html">题库</a></li>
+        <li class="nav-li-3"><a id="challenges" href="challenges.html">赛事</a></li>
+        <li class="nav-li-4"><a id="scoreboard" href="scoreboard.html">积分榜</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-right-a">
+        <a class="unLogin nav-right-a-first" id="login" href="login.html">登 录</a>
+        <a class="unLogin" href="register.html">注 册</a> 
+      </div>
+    </div>
+  </nav>
+
+    <div class="container">   
+      <div class="login-title">
+        <h1>Welcome to HZNU-CTF</h1>
+      </div>
+
+      <div class="login-main form-group">
+        <div class="loginput">
+          <label>账号</label>
+          <input type="text" id="username" class="usr form-control"
+          placeholder="3-20个小写字母或数字（用于登录）">
+          <span id="usrhint"></span><br>
+
+          <label class="pwdtitle">密码</label>
+          <input type="password" id="password" class="pwd form-control"
+          placeholder="3-20个小写字母或数字（用于登录）">
+          <span id="pwdhint"></span>
+      <div class="forget" style="text-align: right;"><a href="forgetpassword.html">忘记密码？</a></div>
+      <div class="buttons"> 
+        <a id="logbtn" onclick="check()" class="btn login-btn">登录</a>
+        <a href="register.html" class="btn login-btn2">注册</a>
+      </div>
+ 
+    </div>
+
+    </div>
+</div> 
+ 
+  <hr>
+  <footer>
+    Copyright &#169; 2019,HZNUNISL, All rights reverved.
+  </footer>
+
+
+  <script src="../js/jquery-3.3.1.js"></script>
+  <script src="../js/login.js"></script>
+  <script src="../js/xcConfirm.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>

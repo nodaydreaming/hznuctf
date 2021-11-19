@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.PersonalRecordDao">
+    <select id="queryPersonalRecordByuserId" resultType="com.ctfplatform.hznuctf.entity.PersonalRecord">
+        SELECT questiontype.type_id AS typeId,questiontype.question_type AS questionType,
+        SUM(CASE WHEN answer_result = 1 THEN 1 ELSE 0 END) AS acNum,
+        SUM(answer_get_point) AS grade,
+        SUM(CASE WHEN answer_result >= 0 THEN 1 ELSE 0 END) AS subNum
+        FROM questiontype,generalrecord NATURAL JOIN question
+        WHERE user_id=#{userId} AND to_who=0 AND question.question_typeid = questiontype.type_id
+        GROUP BY questiontype.type_id
+    </select>
+    <!--搜索通过数和得分以此函数为准-->
+    <select id="getGradeByuserId" resultType="com.ctfplatform.hznuctf.entity.PersonalRecord">
+        SELECT questiontype.type_id AS typeId,
+        COUNT(*) AS acNum,
+        SUM(answer_get_point) AS grade
+        FROM questiontype,
+        (SELECT DISTINCT question_id,MAX(answer_get_point) AS answer_get_point FROM generalrecord WHERE
+        answer_result = 1 AND user_id = #{userId} GROUP BY question_id) AS generalrecord
+        NATURAL JOIN question
+        WHERE
+        questiontype.type_id = question.question_typeid
+        AND to_who = 0
+        GROUP BY questiontype.type_id
+    </select>
+</mapper>

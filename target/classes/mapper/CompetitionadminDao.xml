@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.CompetitionadminDao">
+    <select id="ListCompetitionadmin" resultType="com.ctfplatform.hznuctf.entity.Competitionadmin">
+     SELECT *
+     FROM competitionadmin
+     ORDER BY competitionadmin_id
+    </select>
+    <insert id="insertCompetitionadmin" parameterType="com.ctfplatform.hznuctf.entity.Competitionadmin">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="competitionadminId">
+            select max(competitionadmin_id)+1 as competitionadminId from competitionadmin
+        </selectKey>
+        INSERT INTO
+        competitionadmin(competitionadmin_id,competition_id,admin_id)
+        VALUES
+        (#{competitionadminId},#{competitionId},#{adminId})
+    </insert>
+    <update id="updateCompetitionadmin" parameterType="com.ctfplatform.hznuctf.entity.Competitionadmin">
+        UPDATE competitionadmin
+        <set>
+            <if test="competitionId!=null">competition_id=#{competitionId},</if>
+            <if test="adminId!=null">admin_id=#{adminId}</if>
+        </set>
+        WHERE
+        competitionadmin_id=#{competitionadminId}
+    </update>
+    <delete id="deleteCompetitionadmin" parameterType="com.ctfplatform.hznuctf.entity.Competitionadmin">
+        DELETE FROM
+        competitionadmin
+        WHERE
+        competitionadmin_id=#{competitionadminId}
+    </delete>
+</mapper>

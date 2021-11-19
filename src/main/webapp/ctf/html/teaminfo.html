@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="../navAndFooter.css">
+  <link rel="stylesheet" href="../css/teaminfo.css">
+  <link rel="stylesheet" href="../css/xcConfirm.css">
+  <link rel="icon" href="../img/dunpai.ico" type="image/x-ico">
+  <title>队伍信息</title>
+</head>
+
+<body>
+<nav>
+    <div class="nav-left">
+      <div class="CTF">
+        <span class="word">CTF</span>
+        <span class="CTF-logo">
+         	<img src="../img/dunpai.png" alt="">
+        </span>
+      </div>
+      <p class="HZNU">HZNU</p>
+    </div>
+
+    <div class="nav-middle">
+      <ul>
+        <li class="nav-li-1"><a id="home" href="../home.html">首页</a></li>
+        <li class="nav-li-2"><a id="problemset" href="problemset.html">题库</a></li>
+        <li class="nav-li-3"><a id="challenges" href="challenges.html">赛事</a></li>
+        <li class="nav-li-4"><a id="scoreboard" href="scoreboard.html">积分榜</a></li>
+      </ul>
+    </div>
+
+	<div class="nav-right">
+		<div class="nav-right-a">
+		</div>
+	</div>
+</nav>  
+
+<span class="bread"><a href="challenges.html">赛事列表页</a> -> 队伍信息</span><hr>
+
+<div class="row">
+  <div class="all col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+  <div class="header" style="text-align: center;"><p class="title"></p></div>
+  <div class="body">
+    <h3 class="teaminfo">队伍信息</h3>
+    <div class="teamname">
+      <h4>队伍名称：<span class="jointeam"></span></h4>
+    </div>
+
+    <div class="teamleader">
+      <h4>队长信息：</h4>
+      <div class="row">
+        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">姓名：<span class="leadername"></span></label>
+        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">手机号：<span class="phone"></span></label>
+      </div>
+      <div class="row">
+        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">学号：<span class="stunum"></span></label>
+        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6">专业班级：<span class="classname"></span></label>
+      </div>
+    </div>
+
+    <div class="invitecode">
+      <h4>邀请码：<span class="code"></span></h4>
+    </div>
+
+    <div class="member">
+      <h4>队员信息：<span class="info"></span></h4>
+        <div class="memberinfo row">
+        
+          <!-- <label class="member1 col-xs-6 col-sm-6 col-md-6 col-lg-6">队员一：
+            <span class="member1name">陈CC</span>
+            <span class="delete"><a onclick="delete()"><i class="fa fa-trash-o"></i></a></span>
+          </label>
+          <label class="member2 col-xs-6 col-sm-6 col-md-6 col-lg-6">队员二：
+            <span class="member2name">18192381</span>
+            <span class="delete"><a onclick="delete()"><i class="fa fa-trash-o"></i></a></span>
+          </label> -->
+        </div>
+    </div>
+
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+<hr>
+<footer>
+  Copyright &#169; 2019,HZNUNISL, All rights reverved.
+</footer>
+
+  <script src="../js/jquery-3.3.1.js"></script>
+  <script src="../js/teaminfo.js"></script>
+  <script src="../js/xcConfirm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+*{
+	margin: 0;padding: 0;
+}
+html,body{
+	height: 100%;
+}
+body{
+	background: linear-gradient(to bottom, #131313 0%,#02101c 100%);
+}
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+#bg canvas {
+	z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.canvas-box{
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: -1;
+}
+.box{
+	position: absolute;
+	z-index: 10;
+	color:#fff;
+	font-family: Arial;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+}
+.main{
+	z-index: 2;
+	padding:0px 0 0 30px;
+}
+.racetitle{
+	text-align: center;
+	padding: 20px;
+	color: #fff;
+	font-size: 2rem;
+}
+.title{
+	border-radius:5px;
+	border-bottom: 2px solid #00ccff;
+	font-size: 3rem;
+}
+#radar{
+	height: 680px;
+}
+.row{
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.row label{
+	color: #00ccff;
+	font-size: 1.5rem;
+	padding: 5px;
+	border-radius: 20px;
+	border:2px solid #00ccff;
+}
+.problemtype{
+	/*padding:5px;*/
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.problemtype label{
+	margin-bottom: 15px;
+}
+.category{
+	border-bottom:2px solid #00ccff;
+	border-top:2px solid #00ccff;
+	padding:5px;
+	color:#fff;
+	font-size: 1.6rem;
+	font-weight: bolder;
+	margin-right: 10px;
+}
+.category:hover{
+	color: #fff;
+}
+.problem{
+	background-color: #00ccff;
+	color:#fff;
+	font-weight: bolder;
+	width: 15%;
+	border-top:1px solid #00ccff;
+	border-bottom:1px solid #00ccff;
+/*	margin:5px;*/
+
+}
+.answer{
+	padding: 10px;
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: #00ccff;
+}
+.answer li{
+	list-style: none;
+}
+#answer{
+	height: 30px;
+	color: #00ccff;
+	background-color: #000;
+	width: 80%;
+}
+.submitbtn{
+	color: #00ccff;
+	border-radius: 30px;
+	border:2px solid #00ccff;
+}
+
+/*.submitrecord::-webkit-scrollbar {
+    width: 6px;
+    background-color: #181c32;
+}
+
+.submitrecord::-webkit-scrollbar-thumb {
+    background-color: #00ccff;
+}*/
+table tbody {
+    display:block;
+    height:200px;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+table tbody::-webkit-scrollbar {
+    width: 6px;
+    background-color: #181c32;
+}
+table tbody::-webkit-scrollbar-thumb {
+    background-color: #00ccff;
+}
+table thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.submitrecord thead{
+	font-size: 1.4rem;
+}
+.flagcontent{
+	/* width: 14.28%; */
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+	overflow:hidden; 
+}
+.userNickname{
+	/* width: 14.28%; */
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+/*.flagcontent:hover{ 
+	white-space:normal; 
+	overflow:auto;
+}*/
+/* .right{
+	padding-left: 50px;
+} */
+.news{
+	height: 240px;
+	margin-bottom: 40px;
+	overflow-y:scroll;
+	word-wrap:break-word;
+	color: #00ccff;
+	font-size: 1.5rem;
+	padding: 10px;
+}
+.news::-webkit-scrollbar {
+    width: 6px;
+    background-color: #181c32;
+}
+
+.news::-webkit-scrollbar-thumb {
+    background-color: #00ccff;
+}
+.news span{
+	font-weight: bolder;
+}
+.score a{
+	text-align: right;
+	font-weight: bold;
+	font-size: 1.5rem;
+	color:#00ccff;
+}
+.score a:hover{
+	color: #fff;
+}
+footer {
+	float: none;
+	padding-top: 10px;
+	margin-top: 20px;
+    font-size:1.2em;
+    clear: both;
+    text-align: center;
+    font-family: Arial;
+    font-weight: bolder;
+    color: #fff
+}
+
+@media all and (max-width: 100%){
+    body{
+        width: 100%;
+    }  
+}

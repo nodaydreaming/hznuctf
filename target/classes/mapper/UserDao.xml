@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.UserDao">
+    <select id="queryUserByEmail" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE  user_email=#{userEmail}
+    </select>
+    <select id="queryUserByEmailAndUserAccount" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE  user_email=#{userEmail} AND user_account != #{userAccount}
+    </select>
+    <select id="queryUserByUserId" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+    <select id="resetPassword" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_account=#{userAccount} AND user_email=#{userEmail}
+    </select>
+    <select id="queryUserByAccount" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_account = #{userAccount}
+    </select>
+    <select id="queryUserByStudentnumber" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_studentnumber = #{userStudentnumber}
+    </select>
+    <select id="queryUserByStudentnumberAndUserAccount" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_studentnumber = #{userStudentnumber} AND user_account != #{userAccount}
+    </select>
+    <select id="queryUserByTel" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_tel = #{userTel}
+    </select>
+    <select id="queryUserByTelAndUserAccount" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_tel = #{userTel} AND user_account != #{userAccount}
+    </select>
+    <select id="queryUserByAccountAndPassword" resultType="com.ctfplatform.hznuctf.entity.User">
+        SELECT *
+        FROM user
+        WHERE user_account=#{userAccount} AND user_password=#{userPassword}
+    </select>
+    <select id="ListUser" resultType="com.ctfplatform.hznuctf.entity.User">
+     SELECT *
+     FROM user
+     ORDER BY user_id
+    </select>
+    <insert id="insertUser" parameterType="com.ctfplatform.hznuctf.entity.User">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="userId">
+            select max(user_id)+1 as userId from user
+        </selectKey>
+        INSERT INTO
+        user(user_id,user_account,user_password,user_tel,user_image,user_name,user_nickname,user_academy,user_class,user_studentnumber,user_email,user_gender)
+        VALUES
+        (#{userId},#{userAccount},#{userPassword},#{userTel},#{userImage},#{userName},#{userNickname},#{userAcademy},#{userClass},#{userStudentnumber},#{userEmail},#{userGender})
+    </insert>
+    <update id="updateUser" parameterType="com.ctfplatform.hznuctf.entity.User">
+        UPDATE user
+        <set>
+            <if test="userPassword!=null">user_password=#{userPassword},</if>
+            <if test="userTel!=null">user_tel=#{userTel},</if>
+            <if test="userImage!=null">user_image=#{userImage},</if>
+            <if test="userName!=null">user_name=#{userName},</if>
+            <if test="userNickname!=null">user_Nickname=#{userNickname},</if>
+            <if test="userAcademy!=null">user_academy=#{userAcademy},</if>
+            <if test="userClass!=null">user_class=#{userClass},</if>
+            <if test="userStudentnumber!=null">user_studentnumber=#{userStudentnumber},</if>
+            <if test="userEmail!=null">user_email=#{userEmail},</if>
+            <if test="userGender!=null">user_gender=#{userGender}</if>
+        </set>
+        WHERE
+        user_account=#{userAccount}
+    </update>
+    <delete id="deleteUser" parameterType="com.ctfplatform.hznuctf.entity.User">
+        DELETE FROM
+        user
+        WHERE
+        user_account=#{userAccount}
+    </delete>
+</mapper>

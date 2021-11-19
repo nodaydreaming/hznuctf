@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+body{
+    width: 100%;
+}
+
+.container{
+    width: 95%;
+    border-radius: 5px;
+    background-color: #eef4f9;
+}
+
+.login-title {
+    text-align: center;
+    padding: 30px;
+    color: #003366;
+    text-shadow: #003366 0.1em 0.1em 0.2em
+}
+
+.loginput label{
+    font-size: 2rem
+}
+.login-main{
+    position: relative;
+    width:450px;
+    align-items: center;
+    margin:auto;
+}
+
+.buttons{
+    text-align: center;
+}
+.login-btn{
+    margin-top: 20px;
+    width: 30%;
+    margin-bottom: 30px;
+    font-weight: bolder;
+    font-size: 1.6rem;
+    background-color: #0099ff;
+    color: #fff;
+}
+.login-btn2{
+    margin-top: 20px;
+    width: 30%;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 1.6rem;
+    background-color: #fff;
+    /*border: 1px solid #000;*/
+    color: #000;
+}
+.pwdtitle{
+    margin-top: 15px;
+}
+.forget{
+    margin-top: 15px;
+}
+@media all and (max-width: 1278px){
+    body{
+        width: 1278px;
+    }  
+}

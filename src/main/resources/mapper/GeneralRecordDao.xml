@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.GeneralRecordDao">
+    <insert id="insertGeneralRecord" parameterType="com.ctfplatform.hznuctf.entity.GeneralRecord"
+    useGeneratedKeys="true" keyProperty="generalRecordId" keyColumn="generalRecord_id">
+        INSERT IGNORE INTO
+        generalrecord(generalRecord_id,user_id,question_id,answer_time,answer_body,answer_result,answer_get_point)
+        VALUES
+        (#{generalRecordId},#{userId},#{questionId},#{answerTime},#{answerBody},#{answerResult},
+        #{answerGetPoint})
+    </insert>
+</mapper>

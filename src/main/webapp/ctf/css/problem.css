@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+body{
+    width: 100%;
+}
+.bread{
+	padding-left: 30px;
+	font-weight: bolder;
+	font-size: 1.7rem;
+}
+.title p{
+	font-weight: bolder;
+	text-align: center;
+	color: #5486bb;
+}
+.title i{
+	color:#90EE90;
+	font-size: 2.3rem;
+}
+.problemtitle{
+	font-size: 2.3rem;	
+	padding-right: 15px;
+}
+ .problemid{
+	font-size: 2.3rem;	
+	padding-right: 15px;
+}
+.header{	
+	font-weight: bolder;
+	font-size: 1.7rem;
+	text-align: center;
+	padding: 10px;
+	margin: 0px 30px 15px 30px;
+	border-radius: 5px;
+	background-color: #5b7794;
+	color: white;
+}
+.header span{
+	padding-right: 40px;
+}
+.problem{
+	margin:0px 30px 15px 30px;
+	padding-bottom: 15px;
+	padding-top: 15px;
+	font-size: 1.6rem;
+	border-radius: 5px;
+	background-color: #E9EDF1;
+}
+.problem li{
+	padding-top: 5px;
+}
+
+.submitbtn{
+	font-weight: bolder;
+	background-color: #33ccff;
+	color: #fff;
+	float: right;
+	width: 100px;
+	margin-right: 15%;
+}
+
+@media all and (max-width: 1278px){
+    body{
+        width: 1278px;
+    }  
+
+}

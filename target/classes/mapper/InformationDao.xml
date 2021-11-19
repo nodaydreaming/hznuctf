@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.InformationDao">
+    <select id="ListInformation" resultType="com.ctfplatform.hznuctf.entity.Information">
+     SELECT *
+     FROM information
+     ORDER BY information_id DESC
+    </select>
+    <insert id="insertInformation" parameterType="com.ctfplatform.hznuctf.entity.Information">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="informationId">
+            select max(information_id)+1 as informationId from information
+        </selectKey>
+        INSERT INTO
+        information(information_id,admin_id,information_title,information_detail,information_createtime,information_summary,forCompetition)
+        VALUES
+        (#{informationId},#{adminId},#{informationTitle},#{informationDetail},#{informationCreatetime},#{informationSummary},#{forCompetition})
+    </insert>
+    <update id="updateInformation" parameterType="com.ctfplatform.hznuctf.entity.Information">
+        UPDATE information
+        <set>
+            <if test="adminId!=null">admin_id=#{adminId},</if>
+            <if test="informationTitle!=null">information_title=#{informationTitle},</if>
+            <if test="informationDetail!=null">information_detail=#{informationDetail},</if>
+            <if test="informationSummary!=null">information_summary=#{informationSummary},</if>
+            <if test="forCompetition!=null">forCompetition=#{forCompetition}</if>
+        </set>
+        WHERE
+        information_id=#{informationId}
+    </update>
+    <delete id="deleteInformation" parameterType="com.ctfplatform.hznuctf.entity.Information">
+        DELETE FROM
+        information
+        WHERE
+        information_id=#{informationId}
+    </delete>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.TipsDao">
+    <select id="queryTipsListByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Tips">
+        SELECT *
+        FROM tips
+        WHERE competition_id=#{competitionId}
+    </select>
+    <insert id="insertTips" parameterType="com.ctfplatform.hznuctf.entity.Tips">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="tipsId">
+            select max(tips_id)+1 as tipsId from tips
+        </selectKey>
+        INSERT INTO
+        tips(tips_id,competition_id,publisher,time,content)
+        VALUES
+        (#{tipsId},#{competitionId},#{publisher},#{time},#{content})
+    </insert>
+</mapper>

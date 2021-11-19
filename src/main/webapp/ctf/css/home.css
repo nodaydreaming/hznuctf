@@ -1,0 +1,240 @@
+@charset "UTF-8";
+
+body{
+    width: 100%;
+}
+.header{
+    width: 95%;
+    display: flex;
+    padding: 0;
+    padding-top: 10px;
+    border-top: 1.5px dashed gray;
+    margin: auto;
+}
+#myCarousel{
+    width: 60%;
+}
+
+.carousel-control.left {
+       background-image:none;
+       background-repeat: repeat-x;
+       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+.carousel-control.right {
+      left: auto; right: 0;
+      background-image:none;
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+} 
+.carousel-control{
+    color: #000;
+}
+#myCarousel img{
+    height: 378px;
+}
+.notice{
+    border: 2px solid grey;
+    border-radius: 5px;
+/*    margin-left: 30px;*/
+}
+.notice-h1{
+    margin: 0;
+    margin-top: 10px;
+}
+.more{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    border-top: 1px dashed #000;
+    padding-top: 5px;
+}
+.notice-info{
+    width: 100%;
+}
+.notice-info a{
+    font-weight: bolder;
+}
+.title{
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    border: 1px solid #eee;
+    padding-left: 10px;
+    background-color: #eee;
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
+.title:hover{
+    -webkit-box-shadow:0px 0px 6px #A1A1A1;
+    box-shadow:0px 0px 6px #A1A1A1;
+}
+.abstract{
+    padding-left: 10px; 
+}
+.words{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;      
+    /* 可以显示的行数，超出部分用...表示*/
+    -webkit-box-orient: vertical;
+}
+.problem{
+    width: 100%;
+    display: flex;
+    margin: auto;
+    margin-top: 30px;
+}
+.right-top {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-right: 15px;
+}
+
+.right-instro {
+    -webkit-box-flex: 8;
+        -ms-flex: 8;
+            flex: 8;
+}
+
+.instro-h1 {
+    margin: 0 0 10px 0;
+    padding: 0 15px;
+    border-radius: 5px;
+    line-height: 50px;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #5E5E5E;
+}
+
+.instro-ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.instro-ul li {
+    padding: 10px 13px;
+/*    font-family: 'Gill Sans';*/
+    font-weight: 600;
+    font-size: 2rem;
+    width: 45%;
+    border: 2px solid rgb(179, 177, 177);
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    cursor: pointer;
+}
+
+.instro-ul li:hover {
+    -webkit-box-shadow:0px 0px 6px #A1A1A1;
+    box-shadow:0px 0px 6px #A1A1A1;
+}
+
+.instro-hide-ul {
+    margin: 0;
+    padding: 10px 0;
+}
+
+.instro-hide-ul li {
+    display: none;
+    margin: 5px 0;
+    padding: 10px 13px;
+/*    font-family: 微软雅黑;*/
+    -moz-border: 1.5px solid rgba(0, 102, 0, 0.3);
+    -webkit-border: 1.5px solid rgba(0, 102, 0, 0.3);
+    border: 1.5px solid rgba(0, 102, 0, 0.3);
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    text-indent: 1rem;
+}
+
+.instro-hide-ul li:before {
+    content: '\2022';
+}
+
+/*Learning Resources*/
+.right-bottom {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+}
+
+.right-link {
+    -webkit-box-flex: 8;
+        -ms-flex: 8;
+            flex: 8;
+}
+
+.link-h1 {
+    margin: 0 0 10px 0;
+    padding: 0 15px;
+    border-radius: 5px;
+    line-height: 50px;
+    color: white;
+/*    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;*/
+    background-color: #5E5E5E;
+}
+
+.link-ul {
+    margin: 0;
+    padding: 11px 15px;
+    width: 100%;
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border: 2px solid rgb(71, 61, 61);
+}
+
+.link-li {
+    margin: 13px 0;
+    padding: 10px 13px;
+    font-family: 'Gill Sans';
+    font-weight: 600;
+    font-size: 1.6rem;
+    border: 2px solid rgb(179, 177, 177);
+    border-radius: 5px;
+}
+
+.link-li a {
+    color: #333;
+}
+
+.link-li:before {
+    content: '\2022';
+}
+
+.link-li a:visited {
+    color: #333;
+}
+
+.link-li a:hover {
+    color: #3de1ad;
+    opacity: 0.7;
+}
+
+@media all and (max-width: 1278px){
+    body{
+        width: 1278px;
+    }  
+
+}
+
+
+
+
+
+
+
+
+
+

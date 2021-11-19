@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/competition.css">
+  <link rel="stylesheet" href="../css/fontawesome-all.css">
+  <link rel="stylesheet" href="../css/xcConfirm.css">
+  <link rel="icon" href="../img/dunpai.ico" type="image/x-ico">
+  <script src="../js/echarts.min.js"></script>
+  <title>比赛首页</title>
+</head>
+<style>
+	.canvas-box{
+		width: 100%; height: 100%;
+	}
+</style>
+<body>
+
+<div class="canvas-box">	
+	<div class="bg">
+		<canvas id="canvas"></canvas>
+	</div>
+</div>
+
+<div class="racetitle">
+	<label class="title"></label><br>
+	<label><span class="finish"></span></label>
+	<div>
+		<span>倒计时：</span>
+        <span id="_d">00</span>
+        <span id="_h">00</span>
+        <span id="_m">00</span>
+        <span id="_s">00</span>
+    </div>
+</div>
+
+<div class="main row">
+	
+	<div class="left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+		<div class="row">
+			<label><i class="fas fa-eye"></i> | 题目类型</label>
+			<div class="problemtype">
+			</div>
+		</div>
+		<div class="row">
+			<label><i class="fas fa-flag"></i> | 题目详情</label>
+			<div class="answer">
+				<ul>
+				  <li>题目名称：<span class="questiontitle"></span></li>
+			      <li>题目描述：<span class="introduce"></span></li>
+			      <li>题目附件：<a class="annex" style="color: #fff" href=""></a></li>
+			      <li>格式：<span class="format">flag{XXX}</span></li>
+			      <li>
+			      	<form class="form-inline" role="form">
+				    </form>
+			      </li>
+			    </ul>
+			</div>
+		</div>
+		<div class="submitrecord row">
+			<label><i class="fas fa-check"></i> | 提交记录</label>
+			<table class="table table-condensed" style="color: #00ccff;">
+				<thead>
+					<tr>
+						<th style="text-align: center;">选手</th>
+						<th style="text-align: center;">题目</th>
+						<th style="text-align: center;">答题</th>
+						<th style="text-align: center;">结果</th>
+						<th style="text-align: center;">得分</th>
+						<th style="text-align: center;">备注</th>
+					</tr>
+				</thead>
+
+				<tbody style="text-align: center;" id="submit">				
+				</tbody>
+			</table>
+		</div>	
+	</div>	
+	
+
+	<div id="radar" class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+
+	<div class="right col-xs-4 col-sm-4 col-md-4 col-lg-4">
+		
+		<div class="row" id="notice">
+			<label><i class="fas fa-comment"></i> | 公告详情</label>
+			<div class="news">
+			</div>
+		</div>
+
+		<div class="row">
+			<label><i class="fas fa-star"></i> | 战绩排名</label>
+			<span class="score" style="color: #00ccff; font-weight: bolder;">
+				<a onclick="myScore()" href="javascript:void(0)">当前排名：<span class="myscore"></span></a> | <a  onclick="teamScore()" href="javascript:void(0)">队伍榜单</a>
+			</span>
+			<div class="teamScore"></div>
+			<div class="recordnscore">
+				<p style="color: #00ccff; font-weight: bolder;margin-left: 20px">队伍名：<span class="teamName" style="color: #fff"></span>
+				<div id="myrecord" style="height: 200px"></div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	Copyright &#169; 2019,HZNUNISL, All rights reverved.
+</footer>
+
+	<script src="../js/jquery-3.3.1.js"></script>
+	<script src="../js/xcConfirm.js"></script>
+	<script type="text/javascript" src="../js/canvas.js"></script>
+	<script type="text/javascript" src="../js/competition.js"></script>
+</body>
+</html>

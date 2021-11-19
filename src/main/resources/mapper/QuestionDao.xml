@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.QuestionDao">
+    <select id="ListQuestion" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT *
+     FROM question
+     ORDER BY question_id
+    </select>
+    <select id="ListQuestionForPub" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT *
+     FROM question
+     WHERE to_who = 0
+     ORDER BY question_id
+    </select>
+    <select id="ListQuestionByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT *
+     FROM question NATURAL JOIN competitionquestion
+     WHERE
+     competition_id=#{competitionId}
+     ORDER BY question_id
+    </select>
+    <select id="ListQuestionForCompetition" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT *
+     FROM question
+     WHERE to_who = 1
+     ORDER BY question_id
+    </select>
+    <select id="ListAcQuestionByUserIdAndCompetitionId" resultType="com.ctfplatform.hznuctf.entity.AcQuestion">
+     SELECT user_id,question_id,competition_id,question_title,MAX(answer_get_point) AS answer_get_point
+     FROM record NATURAL JOIN user NATURAL JOIN question
+     WHERE competition_id = #{competitionId} AND user_id = #{userId} AND answer_result = 1
+     GROUP BY question_id
+     ORDER BY question_id
+    </select>
+    <select id="ListDoneQuestion" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT DISTINCT question_id,question_title,question_typeid,question_body,
+     question_answers,question_resources,question_script,question_links,question_createtime,question_author,
+     question_point,question_decrease,question_additional,question_level,to_who
+     FROM question NATURAL JOIN record
+     WHERE user_id = #{userId}
+    </select>
+    <select id="queryQuestionById" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT *
+     FROM question
+     WHERE question_id=#{questionId}
+    </select>
+    <select id="FuzzyQuery" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT *
+     FROM question
+     WHERE question_title LIKE CONCAT(CONCAT('%',#{text}),'%') OR question_id LIKE CONCAT(CONCAT('%',#{text}),'%')
+    </select>
+    <select id="queryQuestionBytypeId" resultType="com.ctfplatform.hznuctf.entity.Question">
+     SELECT *
+     FROM question
+     WHERE question_typeid=#{typeId}
+    </select>
+    <insert id="insertQuestion" parameterType="com.ctfplatform.hznuctf.entity.Question">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="questionId">
+            select max(question_id)+1 as questionId from question
+        </selectKey>
+        INSERT INTO
+        question(question_id,question_title,question_typeid,question_body,question_answers,question_resources,question_script,question_links,question_createtime,question_author,question_point,question_decrease,question_additional,question_level,to_who,version)
+        VALUES
+        (#{questionId},#{questionTitle},#{questionTypeid},#{questionBody},#{questionAnswers},#{questionResources},#{questionScript},#{questionLinks},#{questionCreatetime},#{questionAuthor},#{questionPoint},#{questionDecrease},#{questionAdditional},#{questionLevel},#{toWho},#{version})
+    </insert>
+    <update id="updateQuestion" parameterType="com.ctfplatform.hznuctf.entity.Question">
+        UPDATE question
+        <set>
+            <if test="questionTitle!=null">question_title=#{questionTitle},</if>
+            <if test="questionTypeid!=null">question_typeid=#{questionTypeid},</if>
+            <if test="questionBody!=null">question_body=#{questionBody},</if>
+            <if test="questionAnswers!=null">question_answers=#{questionAnswers},</if>
+            <if test="questionResources!=null">question_resources=#{questionResources},</if>
+            <if test="questionScript!=null">question_script=#{questionScript},</if>
+            <if test="questionLinks!=null">question_links=#{questionLinks},</if>
+            <if test="questionCreatetime!=null">question_createtime=#{questionCreatetime},</if>
+            <if test="questionAuthor!=null">question_author=#{questionAuthor},</if>
+            <if test="questionPoint!=null">question_point=#{questionPoint},</if>
+            <if test="questionDecrease!=null">question_decrease=#{questionDecrease},</if>
+            <if test="questionAdditional!=null">question_additional=#{questionAdditional},</if>
+            <if test="questionLevel!=null">question_level=#{questionLevel},</if>
+            <if test="toWho!=null">to_who=#{toWho}</if>
+        </set>
+        WHERE
+        question_id=#{questionId}
+    </update>
+    <update id="judgeRightUpdateQuestion" parameterType="com.ctfplatform.hznuctf.entity.Question">
+        UPDATE question
+        <set>
+            version=version+1,
+            <if test="questionAdditional!=null">question_additional=#{questionAdditional}</if>
+        </set>
+        WHERE
+        version = #{version} AND question_id=#{questionId}
+    </update>
+    <update id="judgeRightUpdateAdditionalAndDecrease" parameterType="com.ctfplatform.hznuctf.entity.Question">
+        UPDATE question
+        <set>
+            version=version+1,
+            <if test="questionAdditional!=null">question_additional=#{questionAdditional},</if>
+            <if test="questionDecrease!=null">question_decrease=#{questionDecrease}</if>
+        </set>
+        WHERE
+        version = #{version} AND question_id=#{questionId}
+    </update>
+    <delete id="deleteQuestion" parameterType="com.ctfplatform.hznuctf.entity.Question">
+        DELETE FROM
+        question
+        WHERE
+        question_id=#{questionId}
+    </delete>
+</mapper>

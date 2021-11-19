@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.NoticeDao">
+    <select id="listNotice" resultType="com.ctfplatform.hznuctf.entity.Notice">
+        SELECT information_id,admin_name,information_title,information_detail,information_createtime,
+        information_summary,forCompetition
+        FROM information NATURAL JOIN admin
+        ORDER BY information_id DESC
+    </select>
+    <select id="FuzzyQueryNotice" resultType="com.ctfplatform.hznuctf.entity.Notice">
+        SELECT information_id,admin_name,information_title,information_detail,information_createtime,
+        information_summary,forCompetition
+        FROM information NATURAL JOIN admin
+        WHERE admin_name LIKE CONCAT(CONCAT('%',#{text}),'%') OR information_title LIKE CONCAT(CONCAT('%',#{text}),'%')
+    </select>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.TeamDao">
+    <select id="queryTeamByCompetitionIdAndTeamName" resultType="com.ctfplatform.hznuctf.entity.Team">
+        SELECT *
+        FROM team
+        WHERE team_competition_id=#{competitionId} AND team_name=#{teamName}
+    </select>
+    <select id="getTeamScoreListByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Team">
+        SELECT team_id,team_name,team_point
+        FROM team
+        WHERE team_competition_id=#{competitionId}
+        ORDER BY team_point DESC
+    </select>
+    <select id="queryTeamByInvitationCode" resultType="com.ctfplatform.hznuctf.entity.Team">
+        SELECT *
+        FROM team
+        WHERE invitation_code=#{invitationCode}
+    </select>
+    <select id="queryTeamByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Team">
+        SELECT *
+        FROM team
+        WHERE team_competition_id=#{competitionId}
+    </select>
+    <select id="queryTeamByTeamId" resultType="com.ctfplatform.hznuctf.entity.Team">
+        SELECT *
+        FROM team
+        WHERE team_id=#{teamId}
+    </select>
+    <select id="ListTeam" resultType="com.ctfplatform.hznuctf.entity.Team">
+     SELECT *
+     FROM team
+     ORDER BY team_id
+    </select>
+    <insert id="insertTeam" useGeneratedKeys="true" keyColumn="team_id" keyProperty="teamId" parameterType="com.ctfplatform.hznuctf.entity.Team">
+        INSERT INTO
+        team(team_name,team_competition_id,team_point,team_state,team_captain,invitation_code)
+        VALUES
+        (#{teamName},#{teamCompetitionId},#{teamPoint},#{teamState},#{teamCaptain},#{invitationCode})
+    </insert>
+    <update id="updateTeam" parameterType="com.ctfplatform.hznuctf.entity.Team">
+        UPDATE team
+        <set>
+            <if test="teamPoint!=null">team_point=#{teamPoint},</if>
+            <if test="teamCaptain!=null">team_captain=#{teamCaptain},</if>
+            <if test="teamState!=null">team_state=#{teamState}</if>
+        </set>
+        WHERE
+        team_id=#{teamId}
+    </update>
+    <update id="addTeamPoint" parameterType="java.lang.Double">
+        UPDATE team
+        <set>
+            team_point = team_point+#{point}
+        </set>
+        WHERE
+        team_id=#{teamId}
+    </update>
+    <delete id="deleteTeam" parameterType="com.ctfplatform.hznuctf.entity.Team">
+        DELETE FROM
+        team
+        WHERE
+        team_id=#{teamId}
+    </delete>
+</mapper>

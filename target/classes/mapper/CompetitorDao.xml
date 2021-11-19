@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.CompetitorDao">
+    <select id="listCompetitorByCompetitionId" resultType="com.ctfplatform.hznuctf.entity.Competitor">
+        SELECT *
+        FROM team NATURAL JOIN teamcompetitor NATURAL JOIN user
+        WHERE team_competition_id=#{competitionId}
+    </select>
+    <select id="ListExportData" resultType="com.ctfplatform.hznuctf.entity.ExportCompetitorData">
+        SELECT *
+        FROM team NATURAL JOIN teamcompetitor NATURAL JOIN user
+        WHERE team_competition_id=#{competitionId}
+    </select>
+    <select id="login" resultType="com.ctfplatform.hznuctf.entity.Competitor">
+        SELECT *
+        FROM competition, team NATURAL JOIN teamcompetitor NATURAL JOIN user
+        WHERE competition_number=#{competitionNumber}
+        AND user_account=#{userAccount}
+        AND user_password=#{userPassword}
+        AND competition.competition_id=team.team_competition_id
+    </select>
+</mapper>

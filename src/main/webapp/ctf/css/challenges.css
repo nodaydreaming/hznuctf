@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/*nav*/
+
+body{
+    width: 100%;
+}
+.search{
+    margin: 27px;
+    margin-bottom: 15px;
+    height: 60px;
+    background-color: #5b7794;
+    border-radius: 5px;
+}
+.go{
+    background-color: #33ccff;
+    color: #fff;
+    width: 60px;
+}
+.form-group{
+    padding-top: 5px;
+}
+.form-group i{
+    padding-right: 20px;
+}
+
+.form-group input{
+    padding-right: 50px;
+    margin-right: 10px;
+}
+.login-title{
+    margin-right: 30px;
+    margin-left: 30px;
+}
+.login-title p{
+    font-weight: bolder;
+    font-size: 2rem;
+}
+.container{
+    width: 95%;
+}
+.contest{
+    /*display: flex;*/
+    margin: 15px 30px 15px 30px;
+    background-color: #e1e7ed;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    font-family: Arial;
+}
+
+.lookback a{
+    background-color: #33ccff;
+    color: #fff;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 100px;
+}
+
+.apply a{
+    background-color: #F59A23;
+    color: #fff;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 100px;
+}
+
+.lookback i{
+    color: #13227a;
+    position: absolute;
+    right: 0;
+}
+.nofinish i{
+    color: #0099ff;
+    position: absolute;
+    right: 0;
+}
+@media all and (max-width: 1278px){
+    body{
+        width: 1278px;
+    }  
+    .contest{
+        width: 1130px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+

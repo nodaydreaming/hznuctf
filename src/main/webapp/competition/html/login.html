@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN"> 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/fontawesome-all.css">
+  <link rel="stylesheet" href="../css/xcConfirm.css">
+  <link rel="icon" href="../img/dunpai.ico" type="image/x-ico">
+  <title>比赛登录</title>
+</head>
+
+<body>
+
+<div class="canvas-box">	
+	<div class="bg">
+		<canvas id="canvas"></canvas>
+	</div>
+</div>
+
+<div class="title">
+	<label>Welcome to HZNU-CTF</label>
+</div>
+
+<div class="main">
+	<div class="input">
+		<div class="inputform">
+			<label>
+				<i class="fas fa-flag"></i>
+				CTF-Number
+			</label>
+			<input placeholder="Competition Number" id="number" type="text">
+			<p id="numberhint"></p>
+		</div>
+		<div class="inputform">
+			<label>
+				<i class="fas fa-user"></i>
+				Username
+			</label>
+			<input placeholder="Username" id="username" type="text">
+			<p id="usernamehint"></p>
+		</div>
+		<div class="inputform">
+			<label>
+				<i class="fas fa-unlock-alt"></i>
+				Password
+			</label>
+			<input placeholder="Password" id="password" type="password">
+			<p id="passwordhint"></p>
+		</div>
+
+		<div class="forget">
+			<a href="forget.html" style="color: #fff;margin:0;font-style: italic;">Forgot Password?</a>
+		</div>
+
+		<a class="button" onclick="login()">Log In</a>
+	</div>
+</div>
+
+
+<footer>
+	Copyright &#169; 2019,HZNUNISL, All rights reverved.
+</footer>
+
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../js/xcConfirm.js"></script>
+<script type="text/javascript" src="../js/canvas.js"></script>
+<script src="../js/login.js"></script>
+</body>
+</html>

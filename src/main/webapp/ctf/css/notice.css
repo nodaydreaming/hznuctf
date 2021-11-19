@@ -1,0 +1,33 @@
+body{
+    width: 100%;
+}
+.bread{
+	margin-left: 40px;
+	font-size: 1.7rem;
+	font-weight: bolder;
+}
+.container{
+	width: 95%;
+	margin-top: 20px;
+	background-color: #eee;
+	border-radius: 5px;
+/*	border: 2px solid #000;*/
+}
+.title h3{
+	font-weight: bolder;
+}
+.detail{
+	padding:30px;
+}
+.detail p{
+	font-size: 1.7rem;
+}
+.information_detail{
+	text-indent: 2em;
+}
+@media all and (max-width: 1278px){
+    body{
+        width: 1278px;
+    }  
+
+}

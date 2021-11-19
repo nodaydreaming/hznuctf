@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctfplatform.hznuctf.dao.AdminDao">
+    <select id="queryAdminByAccount" resultType="com.ctfplatform.hznuctf.entity.Admin">
+        SELECT *
+        FROM admin
+        WHERE admin_account=#{Account}
+    </select>
+    <select id="isSuper" resultType="com.ctfplatform.hznuctf.entity.Admin">
+        SELECT *
+        FROM admin
+        WHERE admin_id=#{adminId}
+    </select>
+    <select id="queryAdminByAccountAndPassword" resultType="com.ctfplatform.hznuctf.entity.Admin">
+        SELECT *
+        FROM admin
+        WHERE admin_account=#{Account} AND admin_password=#{Password}
+    </select>
+    <select id="ListAdmin" resultType="com.ctfplatform.hznuctf.entity.Admin">
+     SELECT *
+     FROM admin
+     ORDER BY admin_id
+    </select>
+    <insert id="insertAdmin" parameterType="com.ctfplatform.hznuctf.entity.Admin">
+        <selectKey resultType="Integer" order="BEFORE" keyProperty="adminId">
+            select max(admin_id)+1 as adminId from admin
+        </selectKey>
+        INSERT INTO
+        admin(admin_id,admin_account,admin_password,admin_tel,admin_image,admin_nickname,admin_state,admin_name)
+        VALUES
+        (#{adminId},#{adminAccount},#{adminPassword},#{adminTel},#{adminImage},#{adminNickname},
+        #{adminState},#{adminName})
+    </insert>
+    <update id="updateAdmin" parameterType="com.ctfplatform.hznuctf.entity.Admin">
+        UPDATE admin
+        <set>
+            <if test="adminPassword!=null">admin_password=#{adminPassword},</if>
+            <if test="adminTel!=null">admin_tel=#{adminTel},</if>
+            <if test="adminImage!=null">admin_image=#{adminImage},</if>
+            <if test="adminNickname!=null">admin_nickname=#{adminNickname},</if>
+            <if test="adminState!=null">admin_state=#{adminState}</if>
+        </set>
+        WHERE
+        admin_account=#{adminAccount}
+    </update>
+    <delete id="deleteAdmin" parameterType="com.ctfplatform.hznuctf.entity.Admin">
+        DELETE FROM
+        admin
+        WHERE
+        admin_account=#{adminAccount}
+    </delete>
+</mapper>
